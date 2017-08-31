@@ -40,6 +40,7 @@
     }
 </script>
 <template>
+    <div>
         <table class="highlight bordered" border="1">
             <thead>
             <tr>
@@ -65,7 +66,7 @@
             <div class="centered">
                 <vc-pagination :source="pagination" @navigate="navigate" ></vc-pagination>
             </div>
-
+    </div>
 </template>
 <style>
 

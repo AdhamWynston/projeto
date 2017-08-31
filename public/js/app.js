@@ -29713,7 +29713,7 @@ exports = module.exports = __webpack_require__(9)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -30054,7 +30054,85 @@ if (false) {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function(){},staticRenderFns:[]}
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('table', {
+    staticClass: "highlight bordered",
+    attrs: {
+      "border": "1"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.clients), function(c) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(c.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(c.name))]), _vm._v(" "), _c('td', [_vm._m(1, true), _vm._v(" "), _c('a', {
+      staticClass: "tooltipped waves-effect waves-circle waves-light btn-floating orange",
+      attrs: {
+        "href": "",
+        "data-tooltip": "Editar cliente",
+        "data-position": "top",
+        "data-delay": "50"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.editClient(c)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "material-icons"
+    }, [_vm._v("edit")])]), _vm._v(" "), _c('a', {
+      staticClass: "tooltipped waves-effect waves-circle waves-light btn-floating green",
+      attrs: {
+        "href": "",
+        "id": "toastrSuccess",
+        "data-tooltip": "Editar cliente",
+        "data-position": "top",
+        "data-delay": "50"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.desactiveClient()
+        }
+      }
+    }, [_c('i', {
+      staticClass: "material-icons"
+    }, [_vm._v("lock_open")])])])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "centered"
+  }, [_c('vc-pagination', {
+    attrs: {
+      "source": _vm.pagination
+    },
+    on: {
+      "navigate": _vm.navigate
+    }
+  })], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }), _vm._v("ID")]), _vm._v(" "), _c('th', [_c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }), _vm._v("Nome")]), _vm._v(" "), _c('th', {
+    attrs: {
+      "width": ""
+    }
+  }, [_vm._v("Ação")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "tooltipped waves-circle waves-light btn-floating blue",
+    attrs: {
+      "href": "",
+      "data-tooltip": "Visualizar cliente",
+      "data-position": "top",
+      "data-delay": "50"
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("remove_red_eye")])])
+}]}
+module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
