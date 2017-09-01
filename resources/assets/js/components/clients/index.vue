@@ -1,5 +1,5 @@
 <script>
-    import VcPagination from './pagination.vue'
+    import VcPagination from '../pagination.vue'
 
     export default {
         props:{
@@ -19,7 +19,7 @@
         },
         methods:{
             navigate (page){
-                var urlClients = 'posts/api/list?page='+page;
+                var urlClients = 'client?page='+page;
                 axios.get(urlClients).then(response => {
                     this.clients = response.data.data;
                     this.pagination = response.data;
@@ -29,13 +29,13 @@
                 toastr.success('Desativado com sucesso!')
             }
         },
-             mounted (){
+        mounted (){
 
-             var urlClients = 'posts/api/list';
-             axios.get(urlClients).then(response => {
-                 this.clients = response.data.data;
-                 this.pagination = response.data;
-             })
+            var urlClients = 'client';
+            axios.get(urlClients).then(response => {
+                this.clients = response.data.data;
+                this.pagination = response.data;
+            })
         },
     }
 </script>
@@ -63,9 +63,9 @@
             </tr>
             </tbody>
         </table>
-            <div class="centered">
-                <vc-pagination :source="pagination" @navigate="navigate" ></vc-pagination>
-            </div>
+        <div class="centered">
+            <vc-pagination :source="pagination" @navigate="navigate" ></vc-pagination>
+        </div>
     </div>
 </template>
 <style>
