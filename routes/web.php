@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::view('/', 'home');
 
 Auth::routes();
 Route::get('logout', 'AuthController@getLogout');
