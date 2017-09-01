@@ -14,7 +14,6 @@
                         </div>
                     @endif
                     <router-view></router-view>
-
                 </div>
             </div>
         </div>

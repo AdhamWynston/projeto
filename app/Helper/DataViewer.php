@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: adham
- * Date: 01/09/2017
- * Time: 14:22
- */
+namespace App\Helper;
+trait DataViewer{
+    public function scopeSearchPaginateAndOrder($query){
+        return $query->paginate(10);
+    }
+}

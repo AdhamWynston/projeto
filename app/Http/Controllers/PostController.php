@@ -13,7 +13,14 @@ class PostController extends Controller
         $post = Post::all();
         return response()->json($post);
     }
-
+    public function getData(){
+        $model = Post::searchPaginateAndOrder();
+        $columns = Post::$columns;
+        return response()->json([
+            'model' => $model,
+            'columns' => $columns
+        ]);
+    }
 
     public function store(Request $request)
     {

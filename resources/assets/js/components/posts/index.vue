@@ -1,17 +1,12 @@
 <template>
     <div>
-    Email: {{ email }}
+    <data-viewer source="/api/post" title="Posts Data"></data-viewer>
     </div>
 </template>
 
 <script>
     export default {
-    computed: {
-        user (){
-            const { name, email} = this.$store.state.user
-            return `O usuario logado é ${name} e possui o email ${email}.`
-        }
-    }
+
     };
 </script>
 

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Faker\Factory;
+Use App\Models\Post;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $faker = Factory::create();
+        Post::truncate();
+        foreach (range(1,100) as $i){
+            Post::create([
+                'title'=> $faker->title,
+                'body'=> $faker->text
+            ]);
+        }
     }
 }

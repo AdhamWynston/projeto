@@ -18,3 +18,4 @@ Route::get('logout', 'AuthController@getLogout');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('post','PostController');
 Route::resource('client','ClientController');
+Route::get('api/post','PostController@getData');
