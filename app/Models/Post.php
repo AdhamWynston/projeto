@@ -11,5 +11,4 @@ class Post extends Model
 
 
     public static $columns = ['id','title','body','created_at','updated_at'];
-    protected $fillable = ['id','title','body','created_at','updated_at'];
 }

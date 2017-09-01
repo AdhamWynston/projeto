@@ -4,12 +4,11 @@
             <div class="col s2">
                 {{title}}
             </div>
-            <div class="input-field col s1">
-                <select>
-                    <option value="1">id</option>
+                <select v-model="selected">
+                    <option v-for="column in column">{{column}}</option>
                 </select>
+
                 <label class="centered">Procurar</label>
-            </div>
             <div class="input-field col s1">
                 <select>
                     <option value="1">=</option>
@@ -31,6 +30,9 @@
 <script>
     export default {
         props: ['source','title'],
+        data: {
+            selected: 'bar'
+        },
         data(){
             return {
                 model: {},

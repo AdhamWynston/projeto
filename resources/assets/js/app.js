@@ -6,8 +6,8 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,7 +20,9 @@ import store from './main'
 Vue.component('DataViewer',require('./components/DataViewer.vue'));
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('VcClients', require('./components/clients.vue'));
+Vue.component('my-vuetable', require('./components/table/MyVuetable.vue'));
 Vue.use(VueRouter);
+
 
 
 const router = new VueRouter({
@@ -29,5 +31,5 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app',
     store,
-    router
+    router,
 });

@@ -1,13 +1,10 @@
 <template>
     <div>
-    <data-viewer source="/api/post" title="Posts Data"></data-viewer>
+    <my-vuetable></my-vuetable>
     </div>
 </template>
 
 <script>
-    export default {
-
-    };
 </script>
 
 <style lang="css" scoped>
