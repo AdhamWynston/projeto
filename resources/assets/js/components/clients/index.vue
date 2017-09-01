@@ -2,9 +2,6 @@
     import VcPagination from '../pagination.vue'
 
     export default {
-        props:{
-            clients: []
-        },
         components:{
             VcPagination,
         },
