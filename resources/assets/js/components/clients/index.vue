@@ -3,14 +3,10 @@
 
     export default {
         props:{
-            clients: ''
+            clients: []
         },
         components:{
             VcPagination,
-        },
-
-        data: {
-            clients: [],
         },
         data(){
             return {

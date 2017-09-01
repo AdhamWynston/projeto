@@ -16,14 +16,20 @@ window.Vue = require('vue');
  */
 import VueRouter from 'vue-router'
 import routes from './routes'
+import store from './main'
+
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('VcClients', require('./components/clients.vue'));
 Vue.use(VueRouter);
+
+
 const router = new VueRouter({
    routes
 });
 const app = new Vue({
     el: '#app',
+    render: h => h(App),
+    store,
     router
 });

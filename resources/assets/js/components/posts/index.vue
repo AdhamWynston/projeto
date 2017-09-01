@@ -1,28 +1,17 @@
 <template>
-    <table class="highlight bordered">
-        <thead>
-        <tr>
-            <th>title</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="i in 10">
-            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, at?</td>
-            <td><a href="#" class="tooltipped waves-circle waves-light btn-floating blue" data-tooltip="Visualizar cliente" data-position="top" data-delay="50"></a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+    Email: {{ email }}
+    </div>
 </template>
 
 <script>
     export default {
-        name: 'posts-index',
-        data (){
-         return {
-
-         };
+    computed: {
+        user (){
+            const { name, email} = this.$store.state.user
+            return `O usuario logado é ${name} e possui o email ${email}.`
         }
+    }
     };
 </script>
 
