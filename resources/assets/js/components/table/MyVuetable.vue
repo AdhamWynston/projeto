@@ -1,22 +1,19 @@
 <template>
     <div>
-  <vuetable ref="vuetable"
+
+        <filter-bar></filter-bar>
+        <vuetable ref="vuetable"
             api-url="https://vuetable.ratiw.net/api/users"
             :fields="fields"
             pagination-path=""
             :per-page="20"
-            @vuetable:pagination-data="onPaginationData"
-  >
+            :sort-order="sortOrder"
+            detail-row-component="my-detail-row"
+            @vuetable:cell-clicked="onCellClicked"
+            :appendParams="moreParams"
+            @vuetable:pagination-data="onPaginationData">
+        </vuetable>
 
-  </vuetable>
-
-            <vuetable-pagination-info ref="paginationInfo"
-            ></vuetable-pagination-info>
-        <ul class="pagination">
-            <vuetable-pagination ref="pagination"
-                                 @vuetable-pagination:change-page="onChangePage"
-            ></vuetable-pagination>
-        </ul>
     </div>
 </template>
 <script>
@@ -25,6 +22,13 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import accounting from 'accounting'
     import moment from 'moment'
+    import Vue from 'vue'
+    import CustomActions from './CustomActions.vue'
+    import DetailRow from './DetailRow'
+    import FilterBar from './FilterBar'
+    Vue.component('filter-bar', FilterBar)
+    Vue.component('my-detail-row', DetailRow)
+    Vue.component('custom-actions', CustomActions)
 
     export default {
         components: {
@@ -35,6 +39,11 @@
         data(){
             return {
                 fields: [
+                    {
+                        name: '__checkbox',   // <----
+                        titleClass: 'center aligned',
+                        dataClass: 'center aligned'
+                    },
                     {
                         name: '__handle',
                         dataClass: 'center aligned'
@@ -76,10 +85,23 @@
                         dataClass: 'right aligned',
                         callback: 'formatNumber'
                     },
+                    {
+                        name: '__component:custom-actions',   // <----
+                        title: 'Actions',
+                        titleClass: 'center aligned',
+                        dataClass: 'center aligned'
+                    }
                 ]
             }
         },
         methods: {
+            onCellClicked (data, field, event) {
+                console.log('cellClicked: ', field.name)
+                this.$refs.vuetable.toggleDetailRow(data.id)
+            },
+            onAction (action, data, index) {
+                console.log('slot) action: ' + action, data.name, index)
+            },
             allcap (value) {
                 return value.toUpperCase()
             },
@@ -97,11 +119,6 @@
                     : moment(value, 'YYYY-MM-DD').format(fmt)
             },
             onPaginationData (paginationData) {
-                this.$refs.pagination.setPaginationData(paginationData)
-                this.$refs.paginationInfo.setPaginationData(paginationData)
-
-                this.$refs.pagination.setPaginationData(paginationData)
-                this.$refs.paginationInfo.setPaginationData(paginationData)
             },
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
