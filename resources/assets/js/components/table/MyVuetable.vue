@@ -6,6 +6,7 @@
 </template>
 <script>
     import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
+    import accounting from 'accounting'
 
     export default {
         components: {
@@ -14,20 +15,45 @@
         data(){
             return {
                 fields: [
-                    'name', 'email', 'birthdate',
                     {
-                        name: 'address.line1',
-                        title: 'Endereço 1'
+                        name: 'nickname',
+                        callback: 'allcap'
+                    },
+                    'email',
+                    {
+                        name: 'birthdate',
+                        titleClass: 'centered',
+                        dataClass: 'centered'
                     },
                     {
-                        name: 'address.line2',
-                        title: 'Endereço 2'
+                        name: 'nickname',
                     },
                     {
-                        name: 'address.zipcode',
-                        title: 'CEP'
+                        name: 'gender',
+                        titleClass: 'center aligned',
+                        dataClass: 'center aligned',
+                        callback: 'genderLabel'
+                    },
+                    {
+                        name: 'salary',
+                        titleClass: 'center aligned',
+                        dataClass: 'right aligned',
+                        callback: 'formatNumber'
                     },
                 ]
+            }
+        },
+        methods: {
+            allcap (value) {
+                return value.toUpperCase()
+            },
+            genderLabel (value) {
+                return value === 'M'
+                    ? '<span class="ui teal label"><i class="fa fa-male" aria-hidden="true"></i>Male</span>'
+                    : '<span class="ui pink label"><i class="fa fa-female" aria-hidden="true"></i></i>Female</span>'
+            },
+            formatNumber (value) {
+                return accounting.formatNumber(value, 2)
             }
         }
     }

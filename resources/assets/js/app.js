@@ -7,6 +7,7 @@
 
 require('./bootstrap');
 window.Vue = require('vue');
+require('moment');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -22,8 +23,6 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('VcClients', require('./components/clients.vue'));
 Vue.component('my-vuetable', require('./components/table/MyVuetable.vue'));
 Vue.use(VueRouter);
-
-
 
 const router = new VueRouter({
    routes
