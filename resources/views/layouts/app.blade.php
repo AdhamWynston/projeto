@@ -17,12 +17,12 @@ CSRF Token -->
 <body>
 <!-- Always shows a header, even in smaller screens. -->
             <div id="app">
+                @include('shared.nav')
                 @yield('content')
             </div>
 
 
 
-    <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>

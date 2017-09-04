@@ -1,8 +1,8 @@
   <template>
     <div class="custom-actions">
-      <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Visualizar" @click="itemAction('view-item', rowData, rowIndex)"><i class="material-icons">remove_red_eye</i></button>
-      <button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar" @click="itemAction('edit-item', rowData, rowIndex)"><i class="material-icons">mode_edit</i></button>
-      <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Remover" @click="itemAction('delete-item', rowData, rowIndex)"><i class="material-icons">delete</i></button>
+      <button class="tooltipped waves-circle waves-light btn-floating blue" data-tooltip="Visualizar cliente" data-position="top" data-delay="50" @click="itemAction('view-item', rowData, rowIndex)"><i class="material-icons">remove_red_eye</i></button>
+      <button class="tooltipped waves-circle waves-light btn-floating orange" data-tooltip="Visualizar cliente" data-position="top" data-delay="50" @click="itemAction('edit-item', rowData, rowIndex)"><i class="material-icons">mode_edit</i></button>
+      <button class="tooltipped waves-circle waves-light btn-floating red" data-tooltip="Visualizar cliente" data-position="top" data-delay="50" @click="itemAction('delete-item', rowData, rowIndex)"><i class="material-icons">delete</i></button>
     </div>
   </template>
 
