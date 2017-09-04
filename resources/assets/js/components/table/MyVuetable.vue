@@ -1,141 +1,148 @@
-<template>
-    <div>
-
-        <filter-bar></filter-bar>
-        <vuetable ref="vuetable"
-            api-url="https://vuetable.ratiw.net/api/users"
-            :fields="fields"
-            pagination-path=""
-            :per-page="20"
-            :sort-order="sortOrder"
-            detail-row-component="my-detail-row"
-            @vuetable:cell-clicked="onCellClicked"
-            :appendParams="moreParams"
-            @vuetable:pagination-data="onPaginationData">
-        </vuetable>
-
-    </div>
-</template>
 <script>
-    import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
-    import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-    import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import accounting from 'accounting'
     import moment from 'moment'
     import Vue from 'vue'
-    import CustomActions from './CustomActions.vue'
-    import DetailRow from './DetailRow'
+    import VueEvents from 'vue-events'
+    import Vuetable from 'vuetable-2/src/components/Vuetable'
+    import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+    import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+    import CustomActions from './CustomActions'
     import FilterBar from './FilterBar'
-    Vue.component('filter-bar', FilterBar)
-    Vue.component('my-detail-row', DetailRow)
+    import CssConfig from './styleTable'
+    Vue.use(VueEvents)
     Vue.component('custom-actions', CustomActions)
-
+    Vue.component('filter-bar', FilterBar)
     export default {
         components: {
             Vuetable,
             VuetablePagination,
             VuetablePaginationInfo
         },
-        data(){
-            return {
-                fields: [
-                    {
-                        name: '__checkbox',   // <----
-                        titleClass: 'center aligned',
-                        dataClass: 'center aligned'
-                    },
-                    {
-                        name: '__handle',
-                        dataClass: 'center aligned'
-                    },
-                    {
-                        name: '__sequence',
-                        title: '#',
-                        titleClass: 'center aligned',
-                        dataClass: 'right aligned'
-                    },
-                    {
-                        name: 'name',
-                        sortField: 'name'
-                    },
-                    {
-                        name: 'email',
-                        sortField: 'email'
-                    },
-                    {
-                        name: 'birthdate',
-                        titleClass: 'center aligned',
-                        dataClass: 'center aligned',
-                        callback: 'formatDate|DD/MM/YYYY'
-                    },
-                    {
-                        name: 'nickname',
-                        sortField: 'nickname',
-                        callback: 'allcap'
-                    },
-                    {
-                        name: 'gender',
-                        titleClass: 'center aligned',
-                        dataClass: 'center aligned',
-                        callback: 'genderLabel'
-                    },
-                    {
-                        name: 'salary',
-                        titleClass: 'center aligned',
-                        dataClass: 'right aligned',
-                        callback: 'formatNumber'
-                    },
-                    {
-                        name: '__component:custom-actions',   // <----
-                        title: 'Actions',
-                        titleClass: 'center aligned',
-                        dataClass: 'center aligned'
-                    }
-                ]
+        props: {
+            apiUrl: {
+                type: String,
+                required: true
+            },
+            fields: {
+                type: Array,
+                required: true
+            },
+            sortOrder: {
+                type: Array,
+                default() {
+                    return []
+                }
+            },
+            appendParams: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            },
+            detailRowComponent: {
+                type: String
             }
         },
+        data () {
+            return {
+                css: CssConfig,
+            }
+        },
+        mounted () {
+            this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+            this.$events.$on('filter-reset', e => this.onFilterReset())
+        },
+        render(h) {
+            return h(
+                'div',
+                {
+                    class: { container: false }
+                },
+                [
+                    h('filter-bar'),
+                    this.renderVuetable(h),
+                    this.renderPagination(h)
+                ]
+            )
+        },
         methods: {
-            onCellClicked (data, field, event) {
-                console.log('cellClicked: ', field.name)
-                this.$refs.vuetable.toggleDetailRow(data.id)
+            // render related functions
+            renderVuetable(h) {
+                return h(
+                    'vuetable',
+                    {
+                        ref: 'vuetable',
+                        props: {
+                            apiUrl: this.apiUrl,
+                            fields: this.fields,
+                            paginationPath: "",
+                            perPage: 10,
+                            multiSort: true,
+                            sortOrder: this.sortOrder,
+                            appendParams: this.appendParams,
+                            detailRowComponent: this.detailRowComponent,
+                            css: this.css.table,
+                        },
+                        on: {
+                            'vuetable:cell-clicked': this.onCellClicked,
+                            'vuetable:pagination-data': this.onPaginationData,
+                        },
+                        scopedSlots: this.$vnode.data.scopedSlots
+                    }
+                )
             },
-            onAction (action, data, index) {
-                console.log('slot) action: ' + action, data.name, index)
+            renderPagination(h) {
+                return h(
+                    'div',
+                    { class: {'vuetable-pagination': true} },
+                    [
+                        h('vuetable-pagination-info', { ref: 'paginationInfo', props: { css: this.css.paginationInfo } }),
+                        h('vuetable-pagination', {
+                            ref: 'pagination',
+                            props: { css: this.css.pagination },
+                            on: {
+                                'vuetable-pagination:change-page': this.onChangePage
+                            }
+                        })
+                    ]
+                )
             },
+            // ------------------
             allcap (value) {
                 return value.toUpperCase()
             },
             genderLabel (value) {
                 return value === 'M'
-                    ? '<span class="ui teal label"><i class="fa fa-male" aria-hidden="true"></i>Male</span>'
-                    : '<span class="ui pink label"><i class="fa fa-female" aria-hidden="true"></i></i>Female</span>'
+                    ? '<span class="label label-success"><span class="glyphicon glyphicon-tree-deciduous"></span> Male</span>'
+                    : '<span class="label label-danger"><span class="glyphicon glyphicon-heart-empty"></span> Female</span>'
             },
             formatNumber (value) {
                 return accounting.formatNumber(value, 2)
             },
-            formatDate (value, fmt = 'DD/MM/YYYY') {
+            formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
                     : moment(value, 'YYYY-MM-DD').format(fmt)
             },
             onPaginationData (paginationData) {
+                this.$refs.pagination.setPaginationData(paginationData)
+                this.$refs.paginationInfo.setPaginationData(paginationData)
             },
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
+            },
+            onCellClicked (data, field, event) {
+                console.log('cellClicked: ', field.name)
+                this.$refs.vuetable.toggleDetailRow(data.id)
+            },
+            onFilterSet (filterText) {
+                this.appendParams.filter = filterText
+                Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            onFilterReset () {
+                delete this.appendParams.filter
+                Vue.nextTick( () => this.$refs.vuetable.refresh() )
             }
         }
     }
 </script>
-
-<style scoped="">
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: white;
-    margin-top: 60px;
-  }
-
-
-</style>

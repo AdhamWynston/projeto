@@ -20,12 +20,13 @@
         },
         methods: {
             doFilter () {
-                console.log('doFilter:', this.filterText)
+                this.$events.fire('filter-set', this.filterText)
             },
             resetFilter () {
                 this.filterText = ''
-                console.log('resetFilter')
+                this.$events.fire('filter-reset')
             }
+
         }
     }
 </script>

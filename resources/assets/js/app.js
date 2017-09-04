@@ -18,10 +18,10 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import store from './main'
 
-Vue.component('DataViewer',require('./components/DataViewer.vue'));
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('VcClients', require('./components/clients.vue'));
 Vue.component('my-vuetable', require('./components/table/MyVuetable.vue'));
+Vue.component('my-vuetablee', require('./components/MyVuetable.vue'));
 Vue.use(VueRouter);
 
 const router = new VueRouter({
