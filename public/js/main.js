@@ -1,5 +1,6 @@
 $( document ).ready(function(){
     $(".button-collapse").sideNav();
+    $(".button-collapse").off("click").sideNav();
     $('select').material_select();
     $('.dropdown-button').dropdown({
             inDuration: 300,
@@ -12,4 +13,5 @@ $( document ).ready(function(){
             stopPropagation: false // Stops event propagation
         }
     );
+
 });
