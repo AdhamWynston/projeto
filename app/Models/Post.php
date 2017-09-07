@@ -10,5 +10,5 @@ class Post extends Model
     use DataViewer;
 
 
-    public static $columns = ['id','title','body','created_at','updated_at'];
+    protected $fillable = ['title','body'];
 }

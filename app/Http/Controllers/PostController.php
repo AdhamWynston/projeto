@@ -4,28 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+
+    }
 
     public function index()
     {
-        $post = Post::all();
+        $post = Post::paginate(10);
         return response()->json($post);
     }
     public function getData(){
-        $model = Post::searchPaginateAndOrder();
-        $columns = Post::$columns;
-        return response()->json([
-            'model' => $model,
-            'columns' => $columns
-        ]);
+        $post = Post::paginate(10);
+        return response()->json($post);
     }
 
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return response()->json($post);
+        if(! $user = JWTAuth::parseToken()->authenticate()){
+            return response()->json(['message'=> 'User not found'],404);
+        }
+        $this->validate($request,[
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+        $post = new Post([
+            'title' => $request->input('title'),
+            'body' => $request->input('body')
+        ]);
+        $post->save();
+        return response()->json([
+            'message' => 'Post criado com sucesso!'
+        ],201);
     }
 
 

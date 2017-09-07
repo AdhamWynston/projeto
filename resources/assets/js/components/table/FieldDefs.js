@@ -1,19 +1,19 @@
 export default [
     {
         name: '__handle',
-        titleClass: 'text-center',
-        dataClass: 'text-center'
+        titleClass: 'center aligned',
+        dataClass: 'center aligned'
     },
     {
         name: '__sequence',
         title: '#',
-        titleClass: 'text-center',
-        dataClass: 'text-right'
+        titleClass: 'center aligned',
+        dataClass: 'right aligned'
     },
     {
         name: '__checkbox',
-        titleClass: 'text-center',
-        dataClass: 'text-center'
+        titleClass: 'center aligned',
+        dataClass: 'center aligned'
     },
     {
         name: 'name',
@@ -26,8 +26,8 @@ export default [
     {
         name: 'birthdate',
         sortField: 'birthdate',
-        titleClass: 'text-center',
-        dataClass: 'text-center',
+        titleClass: 'center aligned',
+        dataClass: 'center aligned',
         callback: 'formatDate|DD-MM-YYYY'
     },
     {
@@ -38,27 +38,27 @@ export default [
     {
         name: 'gender',
         sortField: 'gender',
-        titleClass: 'text-center',
-        dataClass: 'text-center',
+        titleClass: 'center aligned',
+        dataClass: 'center aligned',
         callback: 'genderLabel'
     },
     {
         name: 'salary',
         sortField: 'salary',
-        titleClass: 'text-center',
-        dataClass: 'text-right',
+        titleClass: 'center aligned',
+        dataClass: 'right aligned',
         callback: 'formatNumber'
     },
     // {
     //   name: '__component:custom-actions',
     //   title: 'Actions',
-    //   titleClass: 'text-center',
-    //   dataClass: 'text-center',
+    //   titleClass: 'center aligned',
+    //   dataClass: 'center aligned',
     // },
     {
         name: '__slot:actions',
         title: 'Slot Actions',
-        titleClass: 'text-center',
-        dataClass: 'text-center',
+        titleClass: 'center aligned',
+        dataClass: 'center aligned',
     }
 ]

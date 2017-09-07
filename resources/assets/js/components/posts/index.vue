@@ -1,218 +1,73 @@
 <template>
-    <div>
-        <filter-bar></filter-bar>
-        <vuetable ref="vuetable"
-                  api-url="http://vuetable.ratiw.net/api/users"
-                  :fields="fields"
-                  pagination-path=""
-                  :css="css.table"
-                  :sort-order="sortOrder"
-                  :multi-sort="true"
-                  detail-row-component="my-detail-row"
-                  :append-params="moreParams"
-                  @vuetable:cell-clicked="onCellClicked"
-                  @vuetable:pagination-data="onPaginationData"
-        ></vuetable>
-        <div class="vuetable-pagination">
-            <vuetable-pagination-info ref="paginationInfo"
-                                      info-class="pagination-info"
-            ></vuetable-pagination-info>
-            <vuetable-pagination ref="pagination"
-                                 :css="css.pagination"
-                                 @vuetable-pagination:change-page="onChangePage"
-            ></vuetable-pagination>
+    <div class="row">
+        <div class="col s12">
+        <my-vuetable
+                api-url="https://vuetable.ratiw.net/api/users"
+                :fields="fields"
+                :sort-order="sortOrder"
+                :append-params="moreParams"
+                detail-row-component="my-detail-row"
+        >
+            <template slot="actions" scope="props">
+                <div class="custom-actions">
+                    <button class="tooltipped waves-effect waves-circle waves-light btn-floating blue" data-tooltip="Editar cliente" data-position="top" data-delay="50"
+                            @click="onAction('view-item', props.rowData, props.rowIndex)">
+                        <i class="material-icons">remove_red_eye</i>
+                    </button>
+                    <button class="tooltipped waves-effect waves-circle waves-light btn-floating orange" data-tooltip="Editar cliente" data-position="top" data-delay="50"
+                            @click="onAction('edit-item', props.rowData, props.rowIndex)">
+                        <i class="material-icons">edit</i>
+                    </button>
+                    <button class="tooltipped waves-effect waves-circle waves-light btn-floating red" data-tooltip="Editar cliente" data-position="top" data-delay="50"
+                            @click="onAction('delete-item', props.rowData, props.rowIndex)">
+                        <i class="material-icons">lock_open</i>
+                    </button>
+                </div>
+            </template>
+        </my-vuetable>
         </div>
     </div>
 </template>
 
 <script>
-    import accounting from 'accounting'
-    import moment from 'moment'
-    import Vuetable from 'vuetable-2/src/components/Vuetable'
-    import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-    import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
-    import VueEvents from 'vue-events'
-    import CustomActions from './CustomActions'
-    import DetailRow from './DetailRow'
-    import FilterBar from './FilterBar'
-
-    Vue.use(VueEvents)
-    Vue.component('custom-actions', CustomActions)
+    import FieldDefs from '../table/FieldDefs'
+    import MyVuetable from '../table/MyVuetable'
+    import DetailRow from '../table/DetailRow'
     Vue.component('my-detail-row', DetailRow)
-    Vue.component('filter-bar', FilterBar)
-
     export default {
+        name: 'app',
         components: {
-            Vuetable,
-            VuetablePagination,
-            VuetablePaginationInfo,
+            MyVuetable
         },
         data () {
             return {
-                fields: [
-                    {
-                        name: '__sequence',
-                        title: '#',
-                        titleClass: 'text-right',
-                        dataClass: 'text-right'
-                    },
-                    {
-                        name: '__checkbox',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                    },
-                    {
-                        name: 'name',
-                        sortField: 'name',
-                    },
-                    {
-                        name: 'email',
-                        sortField: 'email'
-                    },
-                    {
-                        name: 'birthdate',
-                        sortField: 'birthdate',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY'
-                    },
-                    {
-                        name: 'nickname',
-                        sortField: 'nickname',
-                        callback: 'allcap'
-                    },
-                    {
-                        name: 'gender',
-                        sortField: 'gender',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'genderLabel'
-                    },
-                    {
-                        name: 'salary',
-                        sortField: 'salary',
-                        titleClass: 'text-center',
-                        dataClass: 'text-right',
-                        callback: 'formatNumber'
-                    },
-                    {
-                        name: '__component:custom-actions',
-                        title: 'Actions',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
-                    }
-                ],
-                css: {
-                    table: {
-                        tableClass: 'responsive-table highlight',
-                        TheadClass: 'thead-inverse',
-                        ascendingIcon: 'glyphicon glyphicon-chevron-up',
-                        descendingIcon: 'glyphicon glyphicon-chevron-down'
-                    },
-                    pagination: {
-                        wrapperClass: 'pagination',
-                        activeClass: 'active',
-                        disabledClass: 'disabled',
-                        pageClass: 'page',
-                        linkClass: 'link',
-                        icons: {
-                            first: '',
-                            prev: '',
-                            next: '',
-                            last: '',
-                        },
-                    },
-                    icons: {
-                        first: 'glyphicon glyphicon-step-backward',
-                        prev: 'glyphicon glyphicon-chevron-left',
-                        next: 'glyphicon glyphicon-chevron-right',
-                        last: 'glyphicon glyphicon-step-forward',
-                    },
-                },
+                fields: FieldDefs,
                 sortOrder: [
-                    { field: 'email', sortField: 'email', direction: 'asc'}
+                    {
+                        field: 'email',
+                        sortField: 'email',
+                        direction: 'asc'
+                    }
                 ],
                 moreParams: {}
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
+            onAction (action, data, index) {
+                console.log('slot action: ' + action, data.name, index)
             },
-            genderLabel (value) {
-                return value === 'M'
-                    ? '<span class="label label-success"><i class="glyphicon glyphicon-star"></i> Male</span>'
-                    : '<span class="label label-danger"><i class="glyphicon glyphicon-heart"></i> Female</span>'
-            },
-            formatNumber (value) {
-                return accounting.formatNumber(value, 2)
-            },
-            formatDate (value, fmt = 'D MMM YYYY') {
-                return (value == null)
-                    ? ''
-                    : moment(value, 'YYYY-MM-DD').format(fmt)
-            },
-            onPaginationData (paginationData) {
-                this.$refs.pagination.setPaginationData(paginationData)
-                this.$refs.paginationInfo.setPaginationData(paginationData)
-            },
-            onChangePage (page) {
-                this.$refs.vuetable.changePage(page)
-            },
-            onCellClicked (data, field, event) {
-                console.log('cellClicked: ', field.name)
-                this.$refs.vuetable.toggleDetailRow(data.id)
-            },
-        },
-        events: {
-            'filter-set' (filterText) {
-                this.moreParams = {
-                    filter: filterText
-                }
-                Vue.nextTick( () => this.$refs.vuetable.refresh() )
-            },
-            'filter-reset' () {
-                this.moreParams = {}
-                Vue.nextTick( () => this.$refs.vuetable.refresh() )
-            }
         }
     }
 </script>
+
 <style>
-    .pagination {
-        margin: 0;
-        float: right;
-    }
-    .pagination a.page {
-        border: 1px solid lightgray;
-        border-radius: 3px;
-        padding: 5px 10px;
-        margin-right: 2px;
-    }
-    .pagination a.page.active {
-        color: white;
-        background-color: #337ab7;
-        border: 1px solid lightgray;
-        border-radius: 3px;
-        padding: 5px 10px;
-        margin-right: 2px;
-    }
-    .pagination a.btn-nav {
-        border: 1px solid lightgray;
-        border-radius: 3px;
-        padding: 5px 7px;
-        margin-right: 2px;
-    }
-    .pagination a.btn-nav.disabled {
-        color: lightgray;
-        border: 1px solid lightgray;
-        border-radius: 3px;
-        padding: 5px 7px;
-        margin-right: 2px;
-        cursor: not-allowed;
-    }
-    .pagination-info {
-        float: left;
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
     }
 </style>

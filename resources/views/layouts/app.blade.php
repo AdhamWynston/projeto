@@ -16,10 +16,10 @@ CSRF Token -->
     <!-- Styles -->
 </head>
 <body>
-<!-- Always shows a header, even in smaller screens. -->
 
+<!-- Always shows a header, even in smaller screens. -->
+@include('shared.nav')
             <div id="app">
-                @include('shared.nav')
                 @yield('content')
             </div>
 

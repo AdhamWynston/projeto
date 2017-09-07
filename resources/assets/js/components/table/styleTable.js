@@ -1,6 +1,6 @@
 export default {
     table: {
-        tableClass: ' table highlight ',
+        tableClass: ' table highlight responsive-table',
         ascendingIcon: ' fa fa-sort-asc ',
         descendingIcon: ' fa fa-sort-desc',
         handleIcon: ' fa fa-bars ',
@@ -9,11 +9,11 @@ export default {
         }
     },
     pagination: {
-        wrapperClass: "pagination pull-right",
-        activeClass: "btn-primary",
+        wrapperClass: "pagination",
+        activeClass: "active",
         disabledClass: "disabled",
-        pageClass: "btn btn-border",
-        linkClass: "btn btn-border",
+        pageClass: "page",
+        linkClass: "link",
         icons: {
             first: "",
             prev: "",

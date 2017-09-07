@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('/user',[
+    'uses' => 'UserController@signup'
+]);
+Route::post('/user/signin',[
+    'uses' => 'UserController@signin'
+]);
+Route::resource('/post','PostController');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+

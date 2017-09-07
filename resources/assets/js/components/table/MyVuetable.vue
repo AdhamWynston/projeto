@@ -56,7 +56,7 @@
             return h(
                 'div',
                 {
-                    class: { container: false }
+                    class: { container: true }
                 },
                 [
                     h('filter-bar'),
