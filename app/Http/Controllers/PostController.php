@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends Controller
 {
@@ -22,12 +21,11 @@ class PostController extends Controller
         $post = Post::paginate(10);
         return response()->json($post);
     }
-
+    public function main(){
+        return view('posts.index');
+    }
     public function store(Request $request)
     {
-        if(! $user = JWTAuth::parseToken()->authenticate()){
-            return response()->json(['message'=> 'User not found'],404);
-        }
         $this->validate($request,[
             'title' => 'required',
             'body' => 'required'

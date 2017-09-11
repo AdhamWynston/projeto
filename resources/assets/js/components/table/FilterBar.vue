@@ -1,6 +1,7 @@
 <template>
+    <div>
     <div class="row">
-        <div align="center" class="col s10 offset-2">
+        <div class="col s10 offset-s2">
         <table>
             <tr>
                 <td>
@@ -14,6 +15,7 @@
             </tr>
         </table>
         </div>
+    </div>
     </div>
 </template>
 

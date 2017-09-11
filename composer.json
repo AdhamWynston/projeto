@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "Sistema Gerenciador de Segurança de Eventos",
+    "description": "Desenvolvimento do tc.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",

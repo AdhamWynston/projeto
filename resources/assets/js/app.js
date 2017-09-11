@@ -21,13 +21,12 @@ import store from './main'
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('VcClients', require('./components/clients.vue'));
 Vue.component('my-vuetable', require('./components/table/MyVuetable.vue'));
+Vue.component('my-post', require('./components/posts/index.vue'));
+
 Vue.use(VueRouter);
 
-const router = new VueRouter({
-   routes
-});
+
 const app = new Vue({
     el: '#app',
-    store,
-    router,
+    store
 });
