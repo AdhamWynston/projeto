@@ -27913,9 +27913,13 @@ Vue.component('my-post', __webpack_require__(133));
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
+var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+  routes: __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */]
+});
 var app = new Vue({
   el: '#app',
-  store: __WEBPACK_IMPORTED_MODULE_2__main__["a" /* default */]
+  store: __WEBPACK_IMPORTED_MODULE_2__main__["a" /* default */],
+  router: router
 });
 
 /***/ }),
@@ -59542,13 +59546,13 @@ var routes = [{
     path: '/example',
     component: __WEBPACK_IMPORTED_MODULE_0__components_Example_vue___default.a
 }, {
-    path: '/post',
+    path: '/post/create',
     component: __WEBPACK_IMPORTED_MODULE_1__components_posts_index_vue___default.a
 }, {
     path: '/clients',
     component: __WEBPACK_IMPORTED_MODULE_2__components_clients_index_vue___default.a
 }];
-/* unused harmony default export */ var _unused_webpack_default_export = (routes);
+/* harmony default export */ __webpack_exports__["a"] = (routes);
 
 /***/ }),
 /* 182 */
@@ -59643,7 +59647,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -59689,11 +59693,12 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__table_FieldDefs__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__table_postDefs__ = __webpack_require__(258);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__table_MyVuetable__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__table_MyVuetable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__table_MyVuetable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__table_DetailRow__ = __webpack_require__(234);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__table_DetailRow___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__table_DetailRow__);
+//
 //
 //
 //
@@ -59738,10 +59743,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('my-detail-row', __WEBPACK
     },
     data: function data() {
         return {
-            fields: __WEBPACK_IMPORTED_MODULE_1__table_FieldDefs__["a" /* default */],
+            fields: __WEBPACK_IMPORTED_MODULE_1__table_postDefs__["a" /* default */],
             sortOrder: [{
-                field: 'email',
-                sortField: 'email',
+                field: 'id',
+                sortField: 'id',
                 direction: 'asc'
             }],
             moreParams: {}
@@ -59750,72 +59755,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('my-detail-row', __WEBPACK
 
     methods: {
         onAction: function onAction(action, data, index) {
-            console.log('slot action: ' + action, data.name, index);
+            console.log('slot action: ' + action, data.id, index);
         }
     }
 });
 
 /***/ }),
-/* 188 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ([{
-    name: '__handle',
-    titleClass: 'center aligned',
-    dataClass: 'center aligned'
-}, {
-    name: '__sequence',
-    title: '#',
-    titleClass: 'center aligned',
-    dataClass: 'right aligned'
-}, {
-    name: '__checkbox',
-    titleClass: 'center aligned',
-    dataClass: 'center aligned'
-}, {
-    name: 'name',
-    sortField: 'name'
-}, {
-    name: 'email',
-    sortField: 'email'
-}, {
-    name: 'birthdate',
-    sortField: 'birthdate',
-    titleClass: 'center aligned',
-    dataClass: 'center aligned',
-    callback: 'formatDate|DD-MM-YYYY'
-}, {
-    name: 'nickname',
-    sortField: 'nickname',
-    callback: 'allcap'
-}, {
-    name: 'gender',
-    sortField: 'gender',
-    titleClass: 'center aligned',
-    dataClass: 'center aligned',
-    callback: 'genderLabel'
-}, {
-    name: 'salary',
-    sortField: 'salary',
-    titleClass: 'center aligned',
-    dataClass: 'right aligned',
-    callback: 'formatNumber'
-},
-// {
-//   name: '__component:custom-actions',
-//   title: 'Actions',
-//   titleClass: 'center aligned',
-//   dataClass: 'center aligned',
-// },
-{
-    name: '__slot:actions',
-    title: 'Slot Actions',
-    titleClass: 'center aligned',
-    dataClass: 'center aligned'
-}]);
-
-/***/ }),
+/* 188 */,
 /* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -63390,7 +63336,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col s12"
   }, [_c('my-vuetable', {
     attrs: {
-      "api-url": "https://vuetable.ratiw.net/api/users",
+      "api-url": "http://127.0.0.1:8000/api/post",
       "fields": _vm.fields,
       "sort-order": _vm.sortOrder,
       "append-params": _vm.moreParams,
@@ -66727,6 +66673,45 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 257 */,
+/* 258 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ([{
+    name: '__handle',
+    titleClass: 'text-center',
+    dataClass: 'text-center'
+}, {
+    name: '__sequence',
+    title: '#',
+    titleClass: 'text-center',
+    dataClass: 'text-right'
+}, {
+    name: '__checkbox',
+    titleClass: 'text-center',
+    dataClass: 'text-center'
+}, {
+    name: 'title',
+    sortField: 'title'
+}, {
+    name: 'body',
+    sortField: 'body'
+},
+// {
+//   name: '__component:custom-actions',
+//   title: 'Actions',
+//   titleClass: 'text-center',
+//   dataClass: 'text-center',
+// },
+{
+    name: '__slot:actions',
+    title: 'Slot Actions',
+    titleClass: 'text-center',
+    dataClass: 'text-center'
+}]);
 
 /***/ })
 /******/ ]);

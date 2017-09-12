@@ -1,4 +1,4 @@
-<nav>
+<nav class="blue-grey darken-4">
     <div class="nav-wrapper">
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">

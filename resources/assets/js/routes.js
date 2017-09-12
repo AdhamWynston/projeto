@@ -7,7 +7,7 @@ const routes = [
         component: Example
     },
     {
-        path:'/post',
+        path:'/post/create',
         component: PostIndex
     },
     {

@@ -25,8 +25,11 @@ Vue.component('my-post', require('./components/posts/index.vue'));
 
 Vue.use(VueRouter);
 
-
+const router = new VueRouter({
+   routes
+});
 const app = new Vue({
     el: '#app',
-    store
+    store,
+    router,
 });

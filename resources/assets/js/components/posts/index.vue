@@ -1,8 +1,9 @@
 <template>
+    
     <div class="row">
         <div class="col s12">
         <my-vuetable
-                api-url="https://vuetable.ratiw.net/api/users"
+                api-url="http://127.0.0.1:8000/api/post"
                 :fields="fields"
                 :sort-order="sortOrder"
                 :append-params="moreParams"
@@ -31,7 +32,7 @@
 
 <script>
     import Vue from 'vue'
-    import FieldDefs from '../table/FieldDefs'
+    import FieldDefs from '../table/postDefs'
     import MyVuetable from '../table/MyVuetable'
     import DetailRow from '../table/DetailRow'
     Vue.component('my-detail-row', DetailRow)
@@ -45,8 +46,8 @@
                 fields: FieldDefs,
                 sortOrder: [
                     {
-                        field: 'email',
-                        sortField: 'email',
+                        field: 'id',
+                        sortField: 'id',
                         direction: 'asc'
                     }
                 ],
@@ -55,7 +56,7 @@
         },
         methods: {
             onAction (action, data, index) {
-                console.log('slot action: ' + action, data.name, index)
+                console.log('slot action: ' + action, data.id, index)
             },
         }
     }
