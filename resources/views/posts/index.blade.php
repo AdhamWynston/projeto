@@ -3,6 +3,4 @@
 
 @section('content')
 
-        <my-post></my-post>
-
 @endsection

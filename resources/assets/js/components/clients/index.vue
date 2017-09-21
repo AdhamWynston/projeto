@@ -19,7 +19,7 @@
                 })
             },
             desactiveClient: function (){
-                toastr.success('Desativado com sucesso!')
+                toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
             }
         },
         mounted (){
@@ -29,6 +29,7 @@
                 this.clients = response.data.data;
                 this.pagination = response.data;
             })
+
         },
     }
 </script>

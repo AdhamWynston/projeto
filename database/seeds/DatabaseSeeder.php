@@ -12,13 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-        Post::truncate();
-        foreach (range(1,100) as $i){
-            Post::create([
-                'title'=> $faker->title,
-                'body'=> $faker->text
-            ]);
-        }
+        $this->call(UsersTableSeeder::class);
     }
 }

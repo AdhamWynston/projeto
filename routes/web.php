@@ -11,10 +11,23 @@
 |
 */
 
-Route::view('/', 'home');
+Route::view('/', 'welcome');
 
-Auth::routes();
+
 Route::get('logout', 'AuthController@getLogout');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/post', 'PostController@main');
-Route::resource('client','ClientController');
+Route::prefix('admin')->group(function (){
+    Auth::routes();
+    Route::group([
+        'namespace' => 'Admin\\',
+       'as' => 'admin.',
+        'middleware' => 'auth'
+    ], function (){
+        Route::name('dashboard')->get('/dashboard', function (){
+           return  "Estou no dashboard";
+        });
+        Route::resource('users', 'UsersController');
+
+    });
+});

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'ComandoEventos'),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Modelizer\Selenium\SeleniumServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        Bootstrapper\BootstrapperL5ServiceProvider::class,
 
     ],
 
@@ -227,7 +231,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
+        'Table' => Bootstrapper\Facades\Table::class,
+        'Button' => Bootstrapper\Facades\Button::class,
+        'Icon' => Bootstrapper\Facades\Icon::class,
+        'Navbar' => Bootstrapper\Facades\Navbar::class,
+        'Navigation' => Bootstrapper\Facades\Navigation::class,
+        'Alert' => Bootstrapper\Facades\Alert::class,
     ],
 
 ];

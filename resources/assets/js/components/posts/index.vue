@@ -1,66 +1,57 @@
 <template>
-    
-    <div class="row">
-        <div class="col s12">
-        <my-vuetable
-                api-url="http://127.0.0.1:8000/api/post"
-                :fields="fields"
-                :sort-order="sortOrder"
-                :append-params="moreParams"
-                detail-row-component="my-detail-row"
-        >
-            <template slot="actions" scope="props">
-                <div class="custom-actions">
-                    <button class="tooltipped waves-effect waves-circle waves-light btn-floating blue" data-tooltip="Editar cliente" data-position="top" data-delay="50"
-                            @click="onAction('view-item', props.rowData, props.rowIndex)">
-                        <i class="material-icons">remove_red_eye</i>
-                    </button>
-                    <button class="tooltipped waves-effect waves-circle waves-light btn-floating orange" data-tooltip="Editar cliente" data-position="top" data-delay="50"
-                            @click="onAction('edit-item', props.rowData, props.rowIndex)">
-                        <i class="material-icons">edit</i>
-                    </button>
-                    <button class="tooltipped waves-effect waves-circle waves-light btn-floating red" data-tooltip="Editar cliente" data-position="top" data-delay="50"
-                            @click="onAction('delete-item', props.rowData, props.rowIndex)">
-                        <i class="material-icons">lock_open</i>
-                    </button>
+
+    <div>
+        <div>
+            <a class="fixo button is-large is-danger is-loading" v-show="loading">Loading</a>
+        </div>
+        <div class="container">
+            <h1 class="title">{{title}}</h1>
+            <div class="row">
+                <div class="input-field">
+                    <div class="col s6">
+                        <input type="text" class="input is-expanded" placeholder="Procure pelo título" v-model="search">
+                    </div>
+                    <div class="col s3">
+                        <a class="btn blue" @click="searchBreweries">Search</a>
+                    </div>
                 </div>
-            </template>
-        </my-vuetable>
+            </div>
+            <div class="row col s5">
+
+            </div>
+        </div>
+        <div class="row centered">
+            <div class="col s10">
+                <table class="highlight responsive-table">
+                    <thead>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Mais</th>
+                    <th>Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="post in posts">
+                        <td>{{post.id}}</td>
+                        <td>{{post.title}}</td>
+                        <td>{{post.body}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Vue from 'vue'
-    import FieldDefs from '../table/postDefs'
-    import MyVuetable from '../table/MyVuetable'
-    import DetailRow from '../table/DetailRow'
-    Vue.component('my-detail-row', DetailRow)
+
     export default {
         name: 'app',
-        components: {
-            MyVuetable
-        },
-        data () {
-            return {
-                fields: FieldDefs,
-                sortOrder: [
-                    {
-                        field: 'id',
-                        sortField: 'id',
-                        direction: 'asc'
-                    }
-                ],
-                moreParams: {}
-            }
-        },
-        methods: {
-            onAction (action, data, index) {
-                console.log('slot action: ' + action, data.id, index)
-            },
-        }
+
     }
 </script>
 
 <style>
+    .fixo{float: right; margin-right: 10px; margin-top: 0px; z-index: 1000;}
 </style>
