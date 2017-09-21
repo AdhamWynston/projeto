@@ -19,10 +19,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/post', 'PostController@main');
 Route::prefix('admin')->group(function (){
     Auth::routes();
+    Route::group(['prefix'=> 'users', 'as' =>'admin.users.'],function(){
+        Route::name('settings.edit')->get('settings','Admin\UserSettingsController@edit');
+        Route::name('settings.update')->put('settings','Admin\UserSettingsController@update');
+    });
     Route::group([
         'namespace' => 'Admin\\',
        'as' => 'admin.',
-        'middleware' => 'auth'
+        'middleware' => ['auth','can:admin']
     ], function (){
         Route::name('dashboard')->get('/dashboard', function (){
            return  "Estou no dashboard";

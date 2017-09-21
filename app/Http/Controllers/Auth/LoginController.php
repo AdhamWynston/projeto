@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use \Illuminate\Http\Request;
 
@@ -42,6 +43,7 @@ class LoginController extends Controller
         $data  = $request->only($this->username(),'password');
         $usernameKey = $this->usernameKey();
         $data[$usernameKey] = $data[$this->username()];
+        $data['userable_type'] = Admin::class;
         unset($data[$this->username()]);
         return $data;
     }
