@@ -26,6 +26,7 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
     public function create(FormBuilder $formBuilder)
@@ -40,7 +41,8 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, FormBuilder $formBuilder)

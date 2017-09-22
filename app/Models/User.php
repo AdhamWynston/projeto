@@ -35,6 +35,10 @@ class User extends Authenticatable implements TableInterface
         'password', 'remember_token',
     ];
 
+    public function profile(){
+        return $this->hasOne(UserProfile::class)->withDefault();
+    }
+
     public static function createFully($data){
         $password = str_random(6);
         $data['password'] = $password;
