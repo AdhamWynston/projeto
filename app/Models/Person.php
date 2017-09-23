@@ -15,24 +15,14 @@ class Person extends Model
         'street',
         'neighborhood',
         'number',
-        'references',
+        'complement',
         'phone',
         'phoneAlternative',
         'email',
+        'defaulting'
     ];
-    public function personable(){
+    public function personable()
+    {
         return $this->morphTo();
     }
-//    public function individualQuery(){
-//        return $this->morphedByMany(IndividualEntity::class,'personable');
-//    }
-//    public function legalQuery(){
-//        return $this->morphedByMany(LegalEntity::class,'personable');
-//    }
-//    public function getIndividualAttribute(){
-//        return $this->individualQuery()->first();
-//    }
-//    public function getLegalAttribute(){
-//        return $this->legalQuery()->first();
-//    }
 }

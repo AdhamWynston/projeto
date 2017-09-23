@@ -7,8 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
-use Kris\LaravelFormBuilder\Facades;
-use Kris\LaravelFormBuilder\Form;
 
 class UsersController extends Controller
 {

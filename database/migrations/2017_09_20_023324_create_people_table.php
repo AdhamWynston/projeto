@@ -16,6 +16,7 @@ class CreatePeopleTable extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('defaulting');
             $table->string('document');
             $table->string('state');
             $table->string('city');
@@ -23,10 +24,11 @@ class CreatePeopleTable extends Migration
             $table->string('street');
             $table->string('neighborhood');
             $table->string('number');
-            $table->string('references');
+            $table->string('complement');
             $table->string('phone');
             $table->string('phoneAlternative')->nullable();
             $table->string('email');
+            $table->nullableMorphs('personable');
             $table->timestamps();
         });
     }

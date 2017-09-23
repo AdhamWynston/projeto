@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use App\Models\UserProfile;
+use App\Models\Profile;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'enrolment' => 100000,
             'password' => bcrypt('123456')
         ])->each(function (User $user){
-            $profile = factory(UserProfile::class)->make();
+            $profile = factory(Profile::class)->make();
             $user->profile()->create($profile->toArray());
             if($user->userable()) {
                 User::assingRole($user, User::ROLE_ADMIN);
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
         });
         factory(User::class, 10)->create()->each(function (User $user){
             if($user->userable()) {
-                $profile = factory(UserProfile::class)->make();
+                $profile = factory(Profile::class)->make();
                 $user->profile()->create($profile->toArray());
                 User::assingRole($user, User::ROLE_COORDINATOR);
                 User::assignEnrolment($user, User::ROLE_COORDINATOR);

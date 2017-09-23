@@ -6,11 +6,10 @@ use App\Notifications\UserCreated;
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements TableInterface
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
     const ROLE_ADMIN = 1;
     const ROLE_COORDINATOR = 2;
 
@@ -36,7 +35,7 @@ class User extends Authenticatable implements TableInterface
     ];
 
     public function profile(){
-        return $this->hasOne(UserProfile::class)->withDefault();
+        return $this->hasOne(Profile::class)->withDefault();
     }
 
     public static function createFully($data){

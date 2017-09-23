@@ -20,9 +20,6 @@ Route::post('/user/signin',[
     'uses' => 'UserController@signin'
 ]);
 Route::resource('/post','PostController');
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 route::get('/test',function (){
     return response()->json([
        'user' => [

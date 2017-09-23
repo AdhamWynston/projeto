@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Modelizer\Selenium\SeleniumServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
 

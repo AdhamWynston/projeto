@@ -41,8 +41,3 @@ Route::prefix('admin')->group(function (){
 
     });
 });
-Route::group(['middleware' => ['api', 'auth:api']], function (){
-    Route::get('testando', function (){
-        return 'You are authenticated via token';
-    });
-});

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Profile;
+use App\Models\User;
 use Faker\Generator as Faker;
 
 /*
@@ -13,7 +15,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(\App\Models\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     static $password;
 
     return [
@@ -24,7 +26,7 @@ $factory->define(\App\Models\User::class, function (Faker $faker) {
         'enrolment' => str_random(6)
     ];
 });
-$factory->define(\App\Models\UserProfile::class, function (Faker $faker) {
+$factory->define(Profile::class, function (Faker $faker) {
     return [
         'address' => $faker->address,
         'cep' => function() use($faker){

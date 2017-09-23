@@ -1,9 +1,29 @@
 <?php
-
+use App\Models\Client;
+use App\Models\Person;
+use App\Models\State;
 use Faker\Generator as Faker;
 
-$factory->define(App\Client::class, function (Faker $faker) {
+$factory->define(Person::class, function (Faker $faker) {
     return [
-        //
+        'name' => $faker->name,
+        'document' => $faker->numerify('############'),
+        'street' => $faker->streetName,
+        'phone' => $faker->phoneNumber,
+        'email' => $faker->unique()->safeEmail,
+        'defaulting' => rand(0,1),
+        'zip_code' => function() use($faker){
+            $cep = preg_replace('/[^0-9]/','',$faker->postcode());
+            return $cep;
+        },
+        'number' => rand(1,100),
+        'complement' => $faker->streetName,
+        'city' => $faker->city,
+        'neighborhood' => $faker->city,
+        'state' => collect(State::$states)->random(),
+    ];
+});
+$factory->define(Client::class, function (Faker $faker){
+    return [
     ];
 });
