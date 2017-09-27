@@ -12,7 +12,7 @@
         },
         methods:{
             navigate (page){
-                var urlClients = 'client?page='+page;
+                var urlClients = 'clients?page='+page;
                 axios.get(urlClients).then(response => {
                     this.clients = response.data.data;
                     this.pagination = response.data;

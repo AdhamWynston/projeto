@@ -9,6 +9,6 @@ class Client extends Model
     protected $fillable = [
     ];
     public function person(){
-        return $this->morphOne(Client::class,'personable');
+        return $this->morphOne(Person::class,'personable');
     }
 }

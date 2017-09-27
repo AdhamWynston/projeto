@@ -1,24 +1,37 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use JansenFelipe\CnpjGratis\CnpjGratis;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest;
 use App\Models\Client;
+use App\Models\Person;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
     public function index()
     {
-       $client = Client::paginate(5);
-        return response()->json($client);
+       $clients = Person::all()->where('defaulting',1);
+        return view('clients.index', compact('clients'));
     }
 
+    public function create(){
 
-    public function store(Request $request)
+        return view('clients.create', compact('params'));
+    }
+
+    public function store(ClientRequest $request)
     {
-       $client = Client::create($request->all());
-        return response()->json($client);
+             $person = Person::create($request->all());
+
+            $client = Client::create();
+            $data = $person->personable()->associate($client);
+            $data->save();
+             return redirect()->route('clients.index');
+
     }
 
 

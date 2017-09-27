@@ -28,4 +28,5 @@ route::get('/test',function (){
        ]
     ]);
 });
+Route::resource('/clients','Api\ClientsController');
 

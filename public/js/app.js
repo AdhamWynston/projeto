@@ -10480,7 +10480,7 @@ function createPatchFunction (backend) {
 
   var bailed = false;
   // list of modules that can skip create hook during hydration because they
-  // are already rendered on the client or has no need for initialization
+  // are already rendered on the clients or has no need for initialization
   var isRenderedModule = makeMap('attrs,style,class,staticClass,staticStyle,key');
 
   // Note: this is a browser-only function so we can assume elms are DOM nodes.
@@ -10509,7 +10509,7 @@ function createPatchFunction (backend) {
     }
     if (isDef(tag)) {
       if (isDef(children)) {
-        // empty element, allow client to pick up and populate children
+        // empty element, allow clients to pick up and populate children
         if (!elm.hasChildNodes()) {
           createChildren(vnode, children, insertedVnodeQueue);
         } else {
@@ -10595,11 +10595,11 @@ function createPatchFunction (backend) {
               return oldVnode
             } else if (true) {
               warn(
-                'The client-side rendered virtual DOM tree is not matching ' +
+                'The clients-side rendered virtual DOM tree is not matching ' +
                 'server-rendered content. This is likely caused by incorrect ' +
                 'HTML markup, for example nesting block-level elements inside ' +
                 '<p>, or missing <tbody>. Bailing hydration and performing ' +
-                'full client-side render.'
+                'full clients-side render.'
               );
             }
           }
@@ -44411,7 +44411,7 @@ function serialize(params, obj, scope) {
 }
 
 /**
- * XDomain client (Internet Explorer).
+ * XDomain clients (Internet Explorer).
  */
 
 var xdrClient = function (request) {
@@ -44540,7 +44540,7 @@ function isJson(str) {
 }
 
 /**
- * JSONP client (Browser).
+ * JSONP clients (Browser).
  */
 
 var jsonpClient = function (request) {
@@ -44654,7 +44654,7 @@ var header = function (request, next) {
 };
 
 /**
- * XMLHttp client (Browser).
+ * XMLHttp clients (Browser).
  */
 
 var xhrClient = function (request) {
@@ -44717,7 +44717,7 @@ var xhrClient = function (request) {
 };
 
 /**
- * Http client (Node).
+ * Http clients (Node).
  */
 
 var nodeClient = function (request) {
@@ -44754,7 +44754,7 @@ var nodeClient = function (request) {
 };
 
 /**
- * Base client.
+ * Base clients.
  */
 
 var Client = function (context) {
@@ -55349,7 +55349,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 				if ( elem.nodeType === 9 ) {
 					doc = elem.documentElement;
 
-					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
+					// Either scroll[Width/Height] or offset[Width/Height] or clients[Width/Height],
 					// whichever is greatest
 					return Math.max(
 						elem.body[ "scroll" + name ], doc[ "scroll" + name ],

@@ -16,7 +16,7 @@ class CreatePeopleTable extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('defaulting');
+            $table->boolean('defaulting')->default('1');
             $table->string('document');
             $table->string('state');
             $table->string('city');
