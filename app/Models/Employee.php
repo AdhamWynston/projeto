@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Employee extends Model
 {
+    protected $table = 'employees';
     protected $fillable = [
         'name',
         'document',
@@ -21,7 +22,4 @@ class Client extends Model
         'email',
         'status'
     ];
-    public function person(){
-        return $this->morphOne(Person::class,'personable');
-    }
 }

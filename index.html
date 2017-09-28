@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+            console.log(xmlhttp.status, xmlhttp.responseText);
+        }
+    }
+
+    xmlhttp.open('GET', 'http://localhost:8000/api/clients');
+    xmlhttp.setRequestHeader('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc3YjNiZjdjM2ZlMmNhYWVkM2ZkMTc0NWU0ODU4MTAwMDRkMWYzM2IyYjEwMzMyZmNhZTk2Y2Y4YzYxZDRjMmQ4MTRlNDhhOTViMTdhYTc2In0.eyJhdWQiOiIyIiwianRpIjoiNzdiM2JmN2MzZmUyY2FhZWQzZmQxNzQ1ZTQ4NTgxMDAwNGQxZjMzYjJiMTAzMzJmY2FlOTZjZjhjNjFkNGMyZDgxNGU0OGE5NWIxN2FhNzYiLCJpYXQiOjE1MDY2MTQ3ODksIm5iZiI6MTUwNjYxNDc4OSwiZXhwIjoxNTM4MTUwNzg5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.FTbu81mJrmfT7BDqFXj3z_hMPGmalL1ntKl1osBLu4RC_iEO59kCXqMOKOqgFLParW1tEEa4oG48yWW4ZqY50I_A4nwiZy4J_Itx1T6hdgOruzVeoeGXsuVwJCX3G3qHyWb4ssy8bYGoru0VHYw7pPIIvQElXxY8I0nYtrjn2HLpEvUFMI2DmkVc-NeAFr5zeUqwgD9X8KKU51LnOgi5LHtJxJQXEUX-pSne9PN0boWJqExFywLjviQoOdzvXmitqVjAXcYMXY_w887t0NUrXf8bq5j-zd5eZ79UQDFFHxx1hpKwpJtavSlmfqZzoiEhjzzJ9YBa5Kt-jnDViJw_CvxNDRkMgGUZca7ta9p0kQRwrRzs6J8yoCXm--KbdGlpoFBiZAmIGWwq4nJ0q05QkQAwXCeDroWevTGq48-UaZcc9Jts2ZBy1c9wujQvAvWeFofjhQXdnUOtGw8K9NKVMnAQzA1Of-HSq86xQQw3TavPCxTpA3BqSozceR2zglg3IZ2_S7PzJ8_usvDn9OLiWMljgTZFpTygW4y1FUjknnFwBAmwkvC5upuKjq5kfHajYm4uz0Gbbv7dcopoBlh9mCfVTgbhz9nxEzNca8s9QMzkpcz_o3apLwspnFts4QuRsh_MLdc3PrZkh6O1xnKgPzK0u6BLUTcZdyHkp5DtHsM')
+    xmlhttp.send();
+</script>
+</body>
+</html>

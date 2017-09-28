@@ -19,14 +19,15 @@ Route::post('/user',[
 Route::post('/user/signin',[
     'uses' => 'UserController@signin'
 ]);
-Route::resource('/post','PostController');
-route::get('/test',function (){
-    return response()->json([
-       'user' => [
-           'first_name' => 'Adham',
-           'last_name' => 'Wynston'
-       ]
-    ]);
+
+Route::group(['middleware'=> ['cors','auth:api']], function(){
+    Route::get('/user', function (Request $request){
+        return $request->user();
+    })->middleware('auth:api');
+    Route::resource('/post','PostController');
+    Route::resource('/clients','Api\ClientsController');
+    Route::resource('/employees','Api\EmployeesController');
+    Route::resource('/events','Api\EventsController');
 });
-Route::resource('/clients','Api\ClientsController');
+
 

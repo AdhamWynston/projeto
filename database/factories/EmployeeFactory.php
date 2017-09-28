@@ -1,9 +1,10 @@
 <?php
-use App\Models\Client;
+
+use App\Models\Employee;
 use App\Models\State;
 use Faker\Generator as Faker;
 
-$factory->define(Client::class, function (Faker $faker) {
+$factory->define(Employee::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'document' => $faker->numerify('############'),

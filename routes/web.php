@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function (){
         Route::resource('users', 'UsersController');
 
     });
-    Route::middleware('auth')->namespace('Api')->group(function (){
-        Route::resource('clients', 'ClientsController');
-    });
+//    Route::middleware('auth')->namespace('Api')->group(function (){
+//        Route::resource('clients', 'ClientsController');
+//    });
 });

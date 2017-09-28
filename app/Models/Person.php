@@ -23,6 +23,9 @@ class Person extends Model
     ];
     public function personable()
     {
-        return $this->morphTo();
+        return $this->morphTo('personable');
+    }
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
 }

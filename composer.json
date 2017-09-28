@@ -13,6 +13,7 @@
         "jansenfelipe/cnpj-gratis": "^2.1",
         "kris/laravel-form-builder": "^1.12",
         "laravel/framework": "5.5.*",
+        "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
         "modelizer/selenium": "~1.0",
         "patricktalmadge/bootstrapper": "^5.10",
