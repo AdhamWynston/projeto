@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 
 class Kernel extends HttpKernel
 {
@@ -60,5 +61,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'jwt.auth' => \App\Http\Middleware\VerifyJWTToken::class,
+        'auth.renew' => AuthenticateAndRenew::class,
     ];
 }

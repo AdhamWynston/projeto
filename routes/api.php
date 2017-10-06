@@ -19,14 +19,21 @@ Route::post('/user',[
 Route::post('/user/signin',[
     'uses' => 'UserController@signin'
 ]);
+Route::group([
+    'as' => 'api.',
+    'namespace' => 'Api\\'
+], function(){
+    Route::post('/access_token', 'AuthController@accessToken');
 
-Route::group(['middleware'=> ['cors','auth:api']], function(){
-    Route::get('/user', function (Request $request){
-        return $request->user();
-    })->middleware('auth:api');
-    Route::resource('/clients','Api\ClientsController', ['except' => ['edit','create']]);
-    Route::resource('/employees','Api\EmployeesController',['except' => ['edit','create']]);
-    Route::resource('/events','Api\EventsController',['except' => ['edit','create']]);
+    Route::group(['middleware' => 'auth:renew'], function (){
+        Route::get('/user', function (Request $request){
+            return $request->user();
+        });
+        Route::post('/logout', 'AuthController@logout');
+    });
+    Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
+    Route::resource('/employees','EmployeesController',['except' => ['edit','create']]);
+    Route::resource('/events','EventsController',['except' => ['edit','create']]);
 });
 
 

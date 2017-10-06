@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -181,7 +181,6 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 
