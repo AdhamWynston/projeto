@@ -6,11 +6,12 @@ use Faker\Generator as Faker;
 $factory->define(Client::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'document' => $faker->numerify('############'),
+        'document' => $faker->numerify('###########'),
         'street' => $faker->streetName,
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
         'status' => rand(0,1),
+        'type' => rand(0,1),
         'zip_code' => function() use($faker){
             $cep = preg_replace('/[^0-9]/','',$faker->postcode());
             return $cep;

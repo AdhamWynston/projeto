@@ -35,7 +35,7 @@ trait ApiControllerTrait {
             ->with($this->relationships())
             ->where($where)
             ->where('status','=', '1')
-            ->paginate($limit);
+            ->get();
         return response()->json($result);
     }
 

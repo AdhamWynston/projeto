@@ -13,6 +13,7 @@ class Client extends Model
         'city',
         'zip_code',
         'street',
+        'type',
         'neighborhood',
         'number',
         'complement',

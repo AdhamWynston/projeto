@@ -17,6 +17,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('status')->default('1');
+            $table->smallInteger('type')->default('1');
             $table->string('document');
             $table->string('state');
             $table->string('city');

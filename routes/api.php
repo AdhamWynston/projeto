@@ -24,10 +24,9 @@ Route::group(['middleware'=> ['cors','auth:api']], function(){
     Route::get('/user', function (Request $request){
         return $request->user();
     })->middleware('auth:api');
-    Route::resource('/post','PostController');
-    Route::resource('/clients','Api\ClientsController');
-    Route::resource('/employees','Api\EmployeesController');
-    Route::resource('/events','Api\EventsController');
+    Route::resource('/clients','Api\ClientsController', ['except' => ['edit','create']]);
+    Route::resource('/employees','Api\EmployeesController',['except' => ['edit','create']]);
+    Route::resource('/events','Api\EventsController',['except' => ['edit','create']]);
 });
 
 
