@@ -24,11 +24,12 @@ Route::group([
     'namespace' => 'Api\\'
 ], function(){
     Route::post('/access_token', 'AuthController@accessToken');
-
     Route::group(['middleware' => 'auth:renew'], function (){
         Route::get('/user', function (Request $request){
             return $request->user();
         });
+    });
+    Route::group(['middleware' => 'auth:api'], function (){
         Route::post('/logout', 'AuthController@logout');
     });
     Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);

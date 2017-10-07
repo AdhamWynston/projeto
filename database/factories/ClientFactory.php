@@ -7,7 +7,7 @@ $factory->define(Client::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'document' => $faker->numerify('###########'),
-        'street' => $faker->streetName,
+        'street' => $faker->street,
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
         'status' => rand(0,1),
