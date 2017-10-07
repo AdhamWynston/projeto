@@ -31,10 +31,10 @@ Route::group([
     });
     Route::group(['middleware' => 'auth:api'], function (){
         Route::post('/logout', 'AuthController@logout');
+        Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
+        Route::resource('/employees','EmployeesController',['except' => ['edit','create']]);
+        Route::resource('/events','EventsController',['except' => ['edit','create']]);
     });
-    Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
-    Route::resource('/employees','EmployeesController',['except' => ['edit','create']]);
-    Route::resource('/events','EventsController',['except' => ['edit','create']]);
 });
 
 
