@@ -29,7 +29,7 @@ class CreateClientsTable extends Migration
             $table->string('phone');
             $table->string('phoneAlternative')->nullable();
             $table->string('email');
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 

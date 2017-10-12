@@ -34,7 +34,6 @@ trait ApiControllerTrait {
             })
             ->with($this->relationships())
             ->where($where)
-            ->where('status','=', '1')
             ->get();
         return response()->json($result);
     }
@@ -57,7 +56,17 @@ trait ApiControllerTrait {
         $result->update($request->all());
         return response()->json($result);
     }
-
+    public function unique(Request $request)
+    {
+        $where = $request->all()['where'] ?? [];
+        $result = $this->model
+            ->where($where)
+            ->count();
+        if ($result) {
+           return response()->json(false);
+        }
+        return response()->json(true);
+    }
     public function destroy($id)
     {
         $result = $this->model->findOrFail($id);
