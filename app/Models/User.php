@@ -20,7 +20,7 @@ class User extends Authenticatable implements TableInterface, JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'enrolment'
+        'name', 'email', 'password', 'role'
     ];
     public function userable()
     {
@@ -43,8 +43,7 @@ class User extends Authenticatable implements TableInterface, JWTSubject
         $password = str_random(6);
         $data['password'] = $password;
         /** @var  User $user */
-        $user = parent::Create($data+['enrolment' => str_random(6)]);
-        self::assignEnrolment($user, self::ROLE_ADMIN);
+        $user = parent::create($data);
         self::assingRole($user, $data['type']);
         $user->save();
         if(isset($data['send_mail'])){
@@ -52,15 +51,6 @@ class User extends Authenticatable implements TableInterface, JWTSubject
             $user->notify(new UserCreated($token));
         }
         return $user;
-    }
-
-    public static function assignEnrolment(User $user, $type){
-        $types = [
-            self::ROLE_ADMIN => 100000,
-            self::ROLE_COORDINATOR => 300000,
-        ];
-        $user->enrolment = $types[$type] + $user->id;
-        return $user->enrolment;
     }
     public static function assingRole(User $user, $type){
         $types = [
@@ -126,7 +116,7 @@ class User extends Authenticatable implements TableInterface, JWTSubject
                 'id' => $this->id,
                 'name' => $this->name,
                 'email' => $this->email,
-                'role' => $this->userable instanceof Admin ? self::ROLE_ADMIN : self::ROLE_COORDINATOR
+                'role' => $this->role
             ]
         ];
     }

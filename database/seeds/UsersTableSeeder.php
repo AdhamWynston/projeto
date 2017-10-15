@@ -14,25 +14,11 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
+            'name' => 'Administrador',
             'email' => 'admin@admin.com',
-            'enrolment' => 100000,
-            'password' => bcrypt('123456')
-        ])->each(function (User $user){
-            $profile = factory(Profile::class)->make();
-            $user->profile()->create($profile->toArray());
-            if($user->userable()) {
-                User::assingRole($user, User::ROLE_ADMIN);
-                $user->save();
-            }
-        });
-        factory(User::class, 10)->create()->each(function (User $user){
-            if($user->userable()) {
-                $profile = factory(Profile::class)->make();
-                $user->profile()->create($profile->toArray());
-                User::assingRole($user, User::ROLE_COORDINATOR);
-                User::assignEnrolment($user, User::ROLE_COORDINATOR);
-                $user->save();
-            }
-        });
+            'password' => bcrypt('123456'),
+            'role' => 1
+        ]);
+        factory(User::class, 10)->create();
     }
 }
