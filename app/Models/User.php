@@ -20,7 +20,7 @@ class User extends Authenticatable implements TableInterface, JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name', 'email', 'password', 'role', 'status'
     ];
     public function userable()
     {

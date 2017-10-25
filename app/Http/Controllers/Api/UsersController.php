@@ -56,7 +56,7 @@ class UsersController extends Controller
         $user->save();
         $token = \Password::broker()->createToken($user);
         $user->notify(new UserCreated($token));
-        dd($user);
+        return response()->json($user);
     }
     public function show($id){
         $result = $this->model->with($this->relationships())
