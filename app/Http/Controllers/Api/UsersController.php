@@ -46,6 +46,17 @@ class UsersController extends Controller
             ->get();
         return response()->json($result);
     }
+    function checkEmail($email, $id) {
+
+        $result = $this->model->where('email','=',$email)
+            ->where('id','<>',$id)
+            ->count();
+
+        if ($result) {
+            return response()->json(false);
+        }
+        return response()->json(true);
+    }
 
     public function store(Request $request)
     {

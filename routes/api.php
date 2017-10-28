@@ -34,12 +34,14 @@ Route::group([
         Route::resource('/events','EventsController',['except' => ['edit','create']]);
         Route::resource('/employees','EmployeesController',['except' => ['edit','create']]);
         Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
-        Route::get('/unique/clients', 'ClientsController@unique');
         Route::get('/unique/employees', 'EmployeesController@unique');
     });
+    Route::get('/unique/clients', 'ClientsController@unique');
     Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
     Route::resource('/users', 'UsersController',['except' => ['edit','create']]);
     Route::get('/clients/{email}/{id}','ClientsController@checkEmail');
+    Route::get('/users/{email}/{id}','UsersController@checkEmail');
+    Route::get('/employees/{email}/{id}','EmployeesController@checkEmail');
 });
 
 
