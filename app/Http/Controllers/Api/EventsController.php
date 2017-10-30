@@ -35,9 +35,14 @@ class EventsController extends Controller
             $countEmployeeEvent += $event->quantityEmployees;
         }
         $totalEmployeeCalculate = $countEmployeeEvent + $quantityEmployee;
+        $available = $countEmployees - $countEmployeeEvent;
         if($totalEmployeeCalculate > $countEmployees){
-            return response()->json(false);
+            $check = false;
         }
-        return response()->json(true);
+        else {
+            $check = true;
+        }
+        $date = ['resp' => $check, 'quantity' => $available];
+        return response()->json($date);
     }
 }
