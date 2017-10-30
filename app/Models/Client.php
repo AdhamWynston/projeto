@@ -25,4 +25,7 @@ class Client extends Model
     public function person(){
         return $this->morphOne(Person::class,'personable');
     }
+    public function events() {
+        return $this->hasMany(Event::class);
+    }
 }

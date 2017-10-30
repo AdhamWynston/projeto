@@ -1,9 +1,11 @@
 <?php
 
-use App\Models\Employee;
 use Illuminate\Database\Seeder;
+use App\Models\Laulau;
+use Faker\Factory;
 
-class EmployeeTableSeeder extends Seeder
+
+class EventTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +14,5 @@ class EmployeeTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Employee::class, 150)->create();
     }
 }

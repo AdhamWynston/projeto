@@ -15,11 +15,18 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->string('name');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->string('local');
+            $table->string('zip_code');
+            $table->string('city');
+            $table->string('state');
+            $table->integer('quantityEmployees');
+            $table->text('observations');
+            $table->dateTime('startDate');
+            $table->dateTime('endDate');
             $table->boolean('status')->default('1');
-            $table->integer('client_id');
             $table->timestamps();
         });
     }

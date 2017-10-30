@@ -15,4 +15,9 @@ class ClientsController extends Controller
     {
         $this->model = $model;
     }
+    public function clientEvents ($id) {
+        $client = Client::findOrFail($id);
+        $events = $client->events()->get();
+        return response()->json($events);
+    }
 }

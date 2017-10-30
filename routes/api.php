@@ -31,7 +31,6 @@ Route::group([
     });
     Route::group(['middleware' => 'auth:api'], function (){
         Route::post('/logout', 'AuthController@logout');
-        Route::resource('/events','EventsController',['except' => ['edit','create']]);
         Route::resource('/employees','EmployeesController',['except' => ['edit','create']]);
         Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
         Route::get('/unique/employees', 'EmployeesController@unique');
@@ -42,6 +41,9 @@ Route::group([
     Route::get('/clients/{email}/{id}','ClientsController@checkEmail');
     Route::get('/users/{email}/{id}','UsersController@checkEmail');
     Route::get('/employees/{email}/{id}','EmployeesController@checkEmail');
+    Route::resource('/events','EventsController',['except' => ['edit','create']]);
+    Route::get('/client/{id}/events', 'ClientsController@clientEvents');
+    Route::post('/events/check','EventsController@checkDate');
 });
 
 
