@@ -13,6 +13,7 @@ class Event extends Model
         'zip_code',
         'city',
         'state',
+        'duration',
         'quantityEmployees',
         'observations',
         'status',

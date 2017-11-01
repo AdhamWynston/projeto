@@ -44,6 +44,7 @@ Route::group([
     Route::resource('/events','EventsController',['except' => ['edit','create']]);
     Route::get('/client/{id}/events', 'ClientsController@clientEvents');
     Route::post('/events/check','EventsController@checkDate');
+    Route::get('/teste','EventsController@climb');
 });
 
 

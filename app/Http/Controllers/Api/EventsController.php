@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Employee;
 use App\Models\Event;
+use function foo\func;
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
@@ -14,10 +15,67 @@ class EventsController extends Controller
     protected $model;
     protected $relationships=['client'];
 
-    use ApiControllerTrait;
     public function __construct(Event $model)
     {
         $this->model = $model;
+    }
+    public function index(Request $request)
+    {
+        $limit = $request->all()['limit'] ?? 15;
+        $order = $request->all()['order'] ?? null;
+
+        if($order  !== null){
+            $order = explode(',', $order);
+        }
+        $order[0] = $order[0] ?? 'id';
+        $order[1] = $order[1] ?? 'asc';
+
+        $where = $request->all()['where'] ?? [];
+
+        $like = $request->all()['like'] ?? null;
+
+        if($like){
+            $like = explode(',', $like);
+            $like[1] = '%' . $like[1] . '%';
+        }
+
+        $result = $this->model->with($this->relationships())->orderBy($order[0],$order[1])
+            ->where(function($query) use ($like){
+                if($like){
+                    return $query->where($like[0], 'like', $like[1]);
+                }
+                return $query;
+            })
+            ->with($this->relationships())
+            ->where($where)
+            ->get();
+        return response()->json($result);
+    }
+
+    public function store(Request $request)
+    {
+        $result = $this->model->create($request->all());
+        return response()->json($result);
+
+    }
+    public function show($id){
+        $result = $this->model->with($this->relationships())
+            ->findOrFail($id);
+        return response()->json($result);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $result = $this->model->findOrFail($id);
+        $result->update($request->all());
+        return response()->json($result);
+    }
+
+    public function climb() {
+        $employees = Employee::
+            where('status', '=',1)
+            ->get();
+        return response()->json($employees);
     }
     public function checkDate(Request $request)
     {
@@ -45,5 +103,11 @@ class EventsController extends Controller
         }
         $date = ['resp' => $check, 'quantity' => $available];
         return response()->json($date);
+    }
+    protected function relationships(){
+        if (isset($this->relationships)){
+            return $this->relationships;
+        }
+        return [];
     }
 }

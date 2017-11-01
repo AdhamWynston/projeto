@@ -22,6 +22,7 @@ class CreateEventsTable extends Migration
             $table->string('zip_code');
             $table->string('city');
             $table->string('state');
+            $table->integer('duration');
             $table->integer('quantityEmployees');
             $table->text('observations');
             $table->dateTime('startDate');
