@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiControllerTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Employee;
 
 
 class ClientsController extends Controller
