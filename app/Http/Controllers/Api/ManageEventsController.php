@@ -8,42 +8,9 @@ use Illuminate\Http\Request;
 
 class ManageEventsController extends Controller
 {
-    protected $model;
-    protected $relationships=['event'];
-
-    public function __construct(ManageEvents $model)
-    {
-        $this->model = $model;
-    }
     public function index(Request $request)
     {
-        $limit = $request->all()['limit'] ?? 15;
-        $order = $request->all()['order'] ?? null;
-
-        if($order  !== null){
-            $order = explode(',', $order);
-        }
-        $order[0] = $order[0] ?? 'id';
-        $order[1] = $order[1] ?? 'asc';
-
-        $where = $request->all()['where'] ?? [];
-
-        $like = $request->all()['like'] ?? null;
-
-        if($like){
-            $like = explode(',', $like);
-            $like[1] = '%' . $like[1] . '%';
-        }
-
-        $result = $this->model->with($this->relationships())->orderBy($order[0],$order[1])
-            ->where(function($query) use ($like){
-                if($like){
-                    return $query->where($like[0], 'like', $like[1]);
-                }
-                return $query;
-            })
-            ->with($this->relationships())
-            ->where($where)
+        $result = ManageEvents::with('event')
             ->get();
         return response()->json($result);
     }
@@ -64,14 +31,13 @@ class ManageEventsController extends Controller
 
     }
     public function show($id){
-        $result = $this->model->with($this->relationships())
-            ->findOrFail($id);
+        $result = ManageEvents::where('event_id', '=', $id)->get();
         return response()->json($result);
     }
 
     public function update(Request $request, $id)
     {
-        $result = $this->model->findOrFail($id);
+        $result = ManageEvents::findOrFail($id);
         $result->update($request->all());
         return response()->json($result);
     }
