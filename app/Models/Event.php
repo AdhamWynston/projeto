@@ -26,4 +26,7 @@ class Event extends Model
     {
         return $this->belongsTo('App\Models\Client');
     }
+    public function manageEvents() {
+        return $this->hasMany(ManageEvents::class);
+    }
 }

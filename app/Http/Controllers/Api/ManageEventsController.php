@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\ApiControllerTrait;
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Employee;
-use App\Models\Event;
-use function foo\func;
+use App\Models\ManageEvents;
 use Illuminate\Http\Request;
 
-class EventsController extends Controller
+class ManageEventsController extends Controller
 {
     protected $model;
-    protected $relationships=['client'];
+    protected $relationships=['event'];
 
-    public function __construct(Event $model)
+    public function __construct(ManageEvents $model)
     {
         $this->model = $model;
     }
@@ -54,8 +50,17 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
-        $result = $this->model->create($request->all());
-        return response()->json($result);
+        $result = $request->all();
+        $employees = $result['employees'];
+        $eventId = $result['event_id'];
+        foreach ($employees as $employee) {
+            $data = [
+                'employee_id' => $employee,
+                'event_id' => $eventId
+            ];
+            ManageEvents::create($data);
+        }
+        return response()->json($employees);
 
     }
     public function show($id){
@@ -71,12 +76,6 @@ class EventsController extends Controller
         return response()->json($result);
     }
 
-    public function climb() {
-        $employees = Employee::
-            where('status', '=',1)
-            ->get();
-        return response()->json($employees);
-    }
     public function checkDate(Request $request)
     {
         $result = $request->all();

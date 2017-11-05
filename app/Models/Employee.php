@@ -22,4 +22,7 @@ class Employee extends Model
         'email',
         'status'
     ];
+    public function events() {
+        return $this->hasMany(ManageEvents::class);
+    }
 }

@@ -24,7 +24,7 @@ class CreateEventsTable extends Migration
             $table->string('state');
             $table->integer('duration');
             $table->integer('quantityEmployees');
-            $table->text('observations');
+            $table->text('observations')->nullable();
             $table->dateTime('startDate');
             $table->dateTime('endDate');
             $table->boolean('status')->default('1');
