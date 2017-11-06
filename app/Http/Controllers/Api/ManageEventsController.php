@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
+use App\Models\Event;
 use App\Models\ManageEvents;
 use Illuminate\Http\Request;
 
@@ -15,11 +17,25 @@ class ManageEventsController extends Controller
         return response()->json($result);
     }
 
+    public function employeeList ($id) {
+        $event = Event::findOrFail($id);
+        $startDate = $event->startDate;
+        $endDate = $event->endDate;
+        $events = Event::where('startDate', '>=', $startDate)
+            ->where('endDate', '<=', $endDate)
+            ->pluck('id');
+        $employee = Employee::whereNotIn('id', $events)
+            ->where('status', '=', 1)
+            ->get();
+        return response()->json($employee);
+    }
+
     public function store(Request $request)
     {
         $result = $request->all();
         $employees = $result['employees'];
         $eventId = $result['event_id'];
+        ManageEvents::where('event_id', '=', $eventId)->delete();
         foreach ($employees as $employee) {
             $data = [
                 'employee_id' => $employee,
@@ -42,24 +58,13 @@ class ManageEventsController extends Controller
         return response()->json($result);
     }
 
-    public function checkDate(Request $request)
+    public function check($id)
     {
-        $result = $request->all();
-        $startDate = $result['startDate'];
-        $endDate = $result['endDate'];
-        $countEmployees = Employee::where('status', '=', 1)->count();
-        $countEmployeeEvent = 0;
-        $events = Event::
-        where('status', '=', 1)
-            ->where('startDate', '>=', $startDate)
-            ->where('endDate', '<=', $endDate)
-            ->get();
-        foreach ($events as $event) {
-            $countEmployeeEvent += $event->quantityEmployees;
-        }
-        $available = $countEmployees - $countEmployeeEvent;
-        $date = ['quantity' => $available];
-        return response()->json($date);
+        $result = ManageEvents::select('employee_id')
+            ->where('event_id', '=', $id)
+            ->pluck('employee_id')
+        ;
+        return response()->json($result);
     }
     protected function relationships(){
         if (isset($this->relationships)){

@@ -46,6 +46,8 @@ Route::group([
     Route::get('/client/{id}/events', 'ClientsController@clientEvents');
     Route::post('/events/check','EventsController@checkDate');
     Route::get('/teste','EventsController@climb');
+    Route::get('/manage/check/events/{id}', 'ManageEventsController@check');
+    Route::get('/manage/employee/list/{id}', 'ManageEventsController@employeeList');
     Route::resource('/manage/events', 'ManageEventsController');
 });
 
