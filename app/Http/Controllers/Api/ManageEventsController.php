@@ -16,18 +16,34 @@ class ManageEventsController extends Controller
             ->get();
         return response()->json($result);
     }
-
+    public function employeeListCheck ($id) {
+        $event = Event::findOrFail($id);
+        $startDate = $event->startDate;
+        $endDate = $event->endDate;
+        $event = Employee::with('events')
+            ->get();
+        return response()->json($event);
+    }
     public function employeeList ($id) {
         $event = Event::findOrFail($id);
         $startDate = $event->startDate;
         $endDate = $event->endDate;
         $events = Event::where('startDate', '>=', $startDate)
             ->where('endDate', '<=', $endDate)
+            ->with('manageEvents')
             ->pluck('id');
-        $employee = Employee::whereNotIn('id', $events)
+        $employeeEventSelected = ManageEvents::select('employee_id')
+            ->where('event_id', '=', $id)
+            ->pluck('employee_id');
+        $employeeEventSelected = Employee::whereIn('id',$employeeEventSelected)->get();
+        $employeesBusy = ManageEvents::select('employee_id')
+            ->whereIn('event_id',$events)->get();
+        $employeesFree = Employee::
+        whereNotIn('id', $employeesBusy)
             ->where('status', '=', 1)
             ->get();
-        return response()->json($employee);
+        $employeesFree = $employeeEventSelected->merge($employeesFree);
+        return response()->json($employeesFree);
     }
 
     public function store(Request $request)

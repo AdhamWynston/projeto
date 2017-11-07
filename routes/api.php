@@ -48,6 +48,7 @@ Route::group([
     Route::get('/teste','EventsController@climb');
     Route::get('/manage/check/events/{id}', 'ManageEventsController@check');
     Route::get('/manage/employee/list/{id}', 'ManageEventsController@employeeList');
+    Route::get('/manage/employee/checkList/{id}', 'ManageEventsController@employeeListCheck');
     Route::resource('/manage/events', 'ManageEventsController');
 });
 
