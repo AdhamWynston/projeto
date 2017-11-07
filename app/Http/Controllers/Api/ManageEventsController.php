@@ -17,11 +17,24 @@ class ManageEventsController extends Controller
         return response()->json($result);
     }
     public function employeeListCheck ($id) {
-        $event = Event::findOrFail($id);
-        $startDate = $event->startDate;
-        $endDate = $event->endDate;
-        $event = Employee::with('events')
-            ->get();
+        $event = ManageEvents::with('employee')
+            ->where('event_id', '=', $id)
+            ->pluck('employee_id');
+        $employees = Employee::whereIn('id', $event)->get();
+        return response()->json($employees);
+    }
+    public function employeeCheckin ($id) {
+        $event = ManageEvents::with('employee')
+            ->where('event_id', '=', $id)
+            ->whereNotNull('check_in')
+            ->pluck('employee_id');
+        return response()->json($event);
+    }
+    public function employeeCheckout ($id) {
+        $event = ManageEvents::with('employee')
+            ->where('event_id', '=', $id)
+            ->whereNotNull('check_out')
+            ->pluck('employee_id');
         return response()->json($event);
     }
     public function employeeList ($id) {
@@ -45,7 +58,12 @@ class ManageEventsController extends Controller
         $employeesFree = $employeeEventSelected->merge($employeesFree);
         return response()->json($employeesFree);
     }
-
+    public function storeCheckin(Request $request)
+    {
+        $result = $request->all();
+        $employees = $result['employees'];
+        $eventId = $result['event_id'];
+    }
     public function store(Request $request)
     {
         $result = $request->all();
