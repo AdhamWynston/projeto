@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Event;
 use App\Models\ManageEvents;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManageEventsController extends Controller
 {
@@ -19,8 +20,12 @@ class ManageEventsController extends Controller
     public function checkFrequencyEmployeesList ($id) {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
+            ->pluck('id');
+        $employees = DB::table('employees')
+            ->join('manage_events', 'employees.id', '=', 'manage_events.employee_id')
+            ->whereIn('manage_events.id', $event)
             ->get();
-        return response()->json($event);
+        return response()->json($employees);
     }
     public function employeeCheckedinList ($id) {
         $event = ManageEvents::with('employee')
