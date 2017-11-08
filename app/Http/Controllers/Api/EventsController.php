@@ -71,12 +71,6 @@ class EventsController extends Controller
         return response()->json($result);
     }
 
-    public function climb() {
-        $employees = Employee::
-            where('status', '=',1)
-            ->get();
-        return response()->json($employees);
-    }
     public function checkDate(Request $request)
     {
         $result = $request->all();

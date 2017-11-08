@@ -45,12 +45,11 @@ Route::group([
     Route::resource('/events','EventsController',['except' => ['edit','create']]);
     Route::get('/client/{id}/events', 'ClientsController@clientEvents');
     Route::post('/events/check','EventsController@checkDate');
-    Route::get('/teste','EventsController@climb');
     Route::get('/manage/check/events/{id}', 'ManageEventsController@check');
     Route::get('/manage/employee/list/{id}', 'ManageEventsController@employeeList');
-    Route::get('/manage/employee/checkList/{id}', 'ManageEventsController@employeeListCheck');
+    Route::get('/manage/employee/checkfrequency/{id}', 'ManageEventsController@checkFrequencyEmployeesList');
     Route::resource('/manage/events', 'ManageEventsController');
-    Route::get('/manage/employee/checkin/events/{id}', 'ManageEventsController@employeeCheckin');
+    Route::get('/manage/employee/checkin/list/events/{id}', 'ManageEventsController@employeeCheckedinList');
 });
 
 

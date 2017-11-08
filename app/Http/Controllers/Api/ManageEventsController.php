@@ -16,14 +16,13 @@ class ManageEventsController extends Controller
             ->get();
         return response()->json($result);
     }
-    public function employeeListCheck ($id) {
+    public function checkFrequencyEmployeesList ($id) {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
-            ->pluck('employee_id');
-        $employees = Employee::whereIn('id', $event)->get();
-        return response()->json($employees);
+            ->get();
+        return response()->json($event);
     }
-    public function employeeCheckin ($id) {
+    public function employeeCheckedinList ($id) {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
             ->whereNotNull('check_in')
