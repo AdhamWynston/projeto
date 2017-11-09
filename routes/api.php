@@ -40,6 +40,9 @@ Route::group([
     Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
     Route::resource('/users', 'UsersController',['except' => ['edit','create']]);
     Route::get('/clients/{email}/{id}','ClientsController@checkEmail');
+    Route::get('/employees/{email}/{id}','EmployeesController@checkEmail');
+    Route::get('/clients/document/{document}/{id}','ClientsController@checkDocument');
+    Route::get('/employees/document/{document}/{id}','EmployeesController@checkDocument');
     Route::get('/users/{email}/{id}','UsersController@checkEmail');
     Route::get('/employees/{email}/{id}','EmployeesController@checkEmail');
     Route::resource('/events','EventsController',['except' => ['edit','create']]);
@@ -50,6 +53,8 @@ Route::group([
     Route::get('/manage/employee/checkfrequency/{id}', 'ManageEventsController@checkFrequencyEmployeesList');
     Route::resource('/manage/events', 'ManageEventsController');
     Route::get('/manage/employee/checkin/list/events/{id}', 'ManageEventsController@employeeCheckedinList');
+    Route::get('/manage/employee/checkout/list/events/{id}', 'ManageEventsController@employeeCheckedoutList');
+    Route::get('/testando','ManageEventsController@teste');
 });
 
 

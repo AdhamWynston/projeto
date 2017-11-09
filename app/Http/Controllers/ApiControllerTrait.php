@@ -69,6 +69,17 @@ trait ApiControllerTrait {
         }
         return response()->json(true);
     }
+    function checkDocument($document, $id) {
+
+        $result = $this->model->where('document','=',$document)
+            ->where('id','<>',$id)
+            ->count();
+
+        if ($result) {
+            return response()->json(false);
+        }
+        return response()->json(true);
+    }
     public function unique(Request $request)
     {
         $where = $request->all()['where'] ?? [];

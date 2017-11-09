@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Event;
 use App\Models\ManageEvents;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +35,18 @@ class ManageEventsController extends Controller
             ->pluck('employee_id');
         return response()->json($event);
     }
-    public function employeeCheckout ($id) {
+    public function teste () {
+        $to = Carbon::now()->format('Y-m-d H:m:s');
+        $from = Carbon::now()->addDay(1)->format('Y-m-d H:m:s');
+        $result = Event::where('startDate', '>=', $to)
+            ->where('startDate', '<=', $from)->pluck('id');
+        $data = [
+            'status' => 3
+        ];
+        $teste = Event::whereIn('id', $result)->update($data);
+        return response()->json($teste);
+    }
+    public function employeeCheckedoutList ($id) {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
             ->whereNotNull('check_out')

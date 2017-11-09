@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AlterStatusEvents;
+use App\Console\Commands\DeleteUsers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        DeleteUsers::class,
+        AlterStatusEvents::class
     ];
 
     /**
@@ -24,8 +27,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('users:delete')
+            ->everyMinute()
+            ->sendOutputTo(storage_path('logs/output.log'))
+        ;
+        $schedule->command('alter:status')
+            ->everyMinute()
+            ->sendOutputTo(storage_path('logs/output.log'))
+        ;
     }
 
     /**

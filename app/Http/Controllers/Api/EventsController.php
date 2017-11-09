@@ -27,7 +27,7 @@ class EventsController extends Controller
         if($order  !== null){
             $order = explode(',', $order);
         }
-        $order[0] = $order[0] ?? 'id';
+        $order[0] = $order[0] ?? 'status';
         $order[1] = $order[1] ?? 'asc';
 
         $where = $request->all()['where'] ?? [];
