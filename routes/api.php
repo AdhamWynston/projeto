@@ -54,7 +54,10 @@ Route::group([
     Route::resource('/manage/events', 'ManageEventsController');
     Route::get('/manage/employee/checkin/list/events/{id}', 'ManageEventsController@employeeCheckedinList');
     Route::get('/manage/employee/checkout/list/events/{id}', 'ManageEventsController@employeeCheckedoutList');
-    Route::get('/testando','ManageEventsController@teste');
+    Route::get('/testando','EmployeeReportsController@index');
+    Route::get('/testee','EmployeeReportsController@download');
+    Route::get('/reports/event/{id}', 'EventsReportsController@individual');
+    Route::get('/reports/teste/{id}', 'EventsReportsController@teste');
 });
 
 
