@@ -23,7 +23,7 @@ class EventsReportsController extends Controller
         );
         view()->share('data', $data);
         $pdf = PDF::loadView('reports.events.individual');
-        $name = "relatorio-" . $id . ".pdf";
+        $name = "evento-" . $id . ".pdf";
         return $pdf->stream($name);
     }
     public function teste ($id) {
