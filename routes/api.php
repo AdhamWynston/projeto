@@ -12,13 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('/user',[
-    'uses' => 'UserController@signup'
-]);
-Route::post('/user/signin',[
-    'uses' => 'UserController@signin'
-]);
 Route::group([
     'as' => 'api.',
     'namespace' => 'Api\\'
@@ -54,8 +47,6 @@ Route::group([
     Route::resource('/manage/events', 'ManageEventsController');
     Route::get('/manage/employee/checkin/list/events/{id}', 'ManageEventsController@employeeCheckedinList');
     Route::get('/manage/employee/checkout/list/events/{id}', 'ManageEventsController@employeeCheckedoutList');
-    Route::get('/testando','EmployeeReportsController@index'); //  RETIRAR
-    Route::get('/testee','EmployeeReportsController@download'); //  RETIRAR
     Route::get('/reports/event/{id}', 'EventsReportsController@individual');
     Route::get('/reports/client/{id}', 'ClientsReportsController@individual');
     Route::get('/reports/employee/{id}', 'EmployeesReportsController@individual');
