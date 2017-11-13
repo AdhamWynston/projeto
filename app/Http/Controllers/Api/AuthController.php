@@ -29,7 +29,7 @@ class AuthController extends Controller
      */
     protected function credentials(Request $request)
     {
-        $data  = $request->only($this->username(),'password');
+        $data  = array_merge($request->only($this->username(),'password'), ['status' => 1] );
         $usernameKey = $this->usernameKey();
         $data[$usernameKey] = $data[$this->username()];
         unset($data[$this->username()]);
