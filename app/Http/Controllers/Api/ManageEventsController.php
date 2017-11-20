@@ -18,7 +18,8 @@ class ManageEventsController extends Controller
             ->get();
         return response()->json($result);
     }
-    public function checkFrequencyEmployeesList ($id) {
+    public function checkFrequencyEmployeesList ($id)
+    {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
             ->pluck('id');
@@ -28,14 +29,16 @@ class ManageEventsController extends Controller
             ->get();
         return response()->json($employees);
     }
-    public function employeeCheckedinList ($id) {
+    public function employeeCheckedinList ($id)
+    {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
             ->whereNotNull('check_in')
             ->pluck('employee_id');
         return response()->json($event);
     }
-    public function teste () {
+    public function teste ()
+    {
         $to = Carbon::now()->format('Y-m-d H:m:s');
         $from = Carbon::now()->addDay(1)->format('Y-m-d H:m:s');
         $result = Event::where('startDate', '>=', $to)
@@ -46,14 +49,17 @@ class ManageEventsController extends Controller
         $teste = Event::whereIn('id', $result)->update($data);
         return response()->json($teste);
     }
-    public function employeeCheckedoutList ($id) {
+    public function employeeCheckedoutList ($id)
+    {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
             ->whereNotNull('check_out')
             ->pluck('employee_id');
         return response()->json($event);
     }
-    public function employeeList ($id) {
+
+    public function employeeList ($id)
+    {
         $event = Event::findOrFail($id);
         $startDate = $event->startDate;
         $endDate = $event->endDate;
@@ -74,12 +80,14 @@ class ManageEventsController extends Controller
         $employeesFree = $employeeEventSelected->merge($employeesFree);
         return response()->json($employeesFree);
     }
+
     public function storeCheckin(Request $request)
     {
         $result = $request->all();
         $employees = $result['employees'];
         $eventId = $result['event_id'];
     }
+
     public function store(Request $request)
     {
         $result = $request->all();
@@ -96,7 +104,9 @@ class ManageEventsController extends Controller
         return response()->json($employees);
 
     }
-    public function show($id){
+
+    public function show($id)
+    {
         $result = ManageEvents::where('event_id', '=', $id)->get();
         return response()->json($result);
     }
@@ -116,7 +126,8 @@ class ManageEventsController extends Controller
         ;
         return response()->json($result);
     }
-    protected function relationships(){
+    protected function relationships()
+    {
         if (isset($this->relationships)){
             return $this->relationships;
         }

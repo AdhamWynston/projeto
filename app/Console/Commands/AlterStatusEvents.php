@@ -41,11 +41,8 @@ class AlterStatusEvents extends Command
     {
         $to = Carbon::now()->format('Y-m-d H:m:s');
         $from = Carbon::now()->addDay(1)->format('Y-m-d H:m:s');
-        $result = Event::where('startDate', '>=', $to)
-            ->where('startDate', '<=', $from)->pluck('id');
-        $data = [
-            'status' => 3
-        ];
-        Event::whereIn('id', $result)->update($data);
+        Event::where('startDate', '>=', $to)
+            ->where('startDate', '<=', $from)
+            ->update(['status' => 3]);
     }
 }
