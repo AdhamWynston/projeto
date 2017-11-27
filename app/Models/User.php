@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements TableInterface, JWTSubject
 {
     use Notifiable;
     const ROLE_ADMIN = 1;
@@ -20,13 +20,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'status'
+        'name', 'email', 'password', 'role', 'status'
     ];
-
+    public function userable()
+    {
+        return $this->morphTo();
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -61,6 +60,38 @@ class User extends Authenticatable implements JWTSubject
         $model = $types[$type];
         $model = $model::create([]);
         $user->userable()->associate($model);
+    }
+    /**
+     * A list of headers to be used when a table is displayed
+     *
+     * @return array
+     */
+    public function getTableHeaders()
+    {
+        return [
+            'Id',
+            'Nome',
+            'Email'
+        ];
+    }
+
+    /**
+     * Get the value for a given header. Note that this will be the value
+     * passed to any callback functions that are being used.
+     *
+     * @param string $header
+     * @return mixed
+     */
+    public function getValueForHeader($header)
+    {
+        switch ($header){
+            case 'Id':
+                return $this->id;
+            case 'Nome':
+                return $this->name;
+            case 'Email':
+                return $this->email;
+        }
     }
 
     /**

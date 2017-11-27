@@ -41,7 +41,7 @@ Route::group([
     Route::post('/events/check','EventsController@checkDate');
     Route::get('/manage/check/events/{id}', 'ManageEventsController@check');
     Route::get('/manage/employee/list/{id}', 'ManageEventsController@employeeList');
-    Route::get('/manage/employee/checkfrequency/{id}', 'ManageEventsController@checkListEmployeeFrequency');
+    Route::get('/manage/employee/checkfrequency/{id}', 'ManageEventsController@checkFrequencyEmployeesList');
     Route::resource('/manage/events', 'ManageEventsController');
     Route::get('/manage/employee/checkin/list/events/{id}', 'ManageEventsController@employeeCheckedinList');
     Route::get('/manage/employee/checkout/list/events/{id}', 'ManageEventsController@employeeCheckedoutList');

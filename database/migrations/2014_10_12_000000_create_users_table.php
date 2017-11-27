@@ -19,9 +19,8 @@ class CreateUsersTable extends Migration
             $table->boolean('status')->default('1');
             $table->string('email')->unique();
             $table->smallInteger('role');
-            $table->string('password')->nullable();
-            $table->string('confirmed_token', 36)->unique();
-            $table->timestamp('confirmed_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

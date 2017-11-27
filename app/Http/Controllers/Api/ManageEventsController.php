@@ -18,7 +18,7 @@ class ManageEventsController extends Controller
             ->get();
         return response()->json($result);
     }
-    public function checkListEmployeeFrequency ($id)
+    public function checkFrequencyEmployeesList ($id)
     {
         $event = ManageEvents::with('employee')
             ->where('event_id', '=', $id)
