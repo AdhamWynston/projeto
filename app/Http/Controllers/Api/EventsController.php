@@ -21,7 +21,6 @@ class EventsController extends Controller
     }
     public function index(Request $request)
     {
-
         $limit = $request->all()['limit'] ?? 15;
         $order = $request->all()['order'] ?? null;
 

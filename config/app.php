@@ -182,7 +182,6 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
-        geekcom\ValidatorDocs\ValidatorProvider::class
 
     ],
 

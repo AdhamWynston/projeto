@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Http\Controllers\ApiControllerTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Notifications\UserCreated;
 use Illuminate\Http\Request;
@@ -12,7 +10,6 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     protected $model;
-    use ApiControllerTrait;
     public function __construct(User $model)
     {
         $this->model = $model;
@@ -49,8 +46,19 @@ class UsersController extends Controller
             ->get();
         return response()->json($result);
     }
+    function checkEmail($email, $id) {
 
-    public function store(UserRequest $request)
+        $result = $this->model->where('email','=',$email)
+            ->where('id','<>',$id)
+            ->count();
+
+        if ($result) {
+            return response()->json(false);
+        }
+        return response()->json(true);
+    }
+
+    public function store(Request $request)
     {
         $result = $request->all();
         $pass = str_random(6);
@@ -73,7 +81,23 @@ class UsersController extends Controller
         $result->update($request->all());
         return response()->json($result);
     }
-
+    public function unique(Request $request)
+    {
+        $where = $request->all()['where'] ?? [];
+        $result = $this->model
+            ->where($where)
+            ->count();
+        if ($result) {
+            return response()->json(false);
+        }
+        return response()->json(true);
+    }
+    public function destroy($id)
+    {
+        $result = $this->model->findOrFail($id);
+        $result->delete();
+        return response()->json($result);
+    }
     protected function relationships(){
         if (isset($this->relationships)){
             return $this->relationships;
