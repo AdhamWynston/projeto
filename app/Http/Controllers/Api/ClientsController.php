@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Validator;
 
 
 class ClientsController extends Controller
@@ -52,7 +53,7 @@ class ClientsController extends Controller
     }
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(),[
             'name' => 'string|required',
             'email' => 'email|unique:clients|required',
             'type' => 'required',
@@ -67,7 +68,9 @@ class ClientsController extends Controller
             'phone' => 'required',
             'phoneAlternative' => 'nullable'
         ]);
-
+        if ($validator->fails()) {
+            abort(422);
+        }
         $data = $request->all();
 
         $client = new Client();

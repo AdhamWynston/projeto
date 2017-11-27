@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiControllerTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Notifications\UserCreated;
+use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Validator;
 
 
 class UsersController extends Controller
@@ -50,15 +51,18 @@ class UsersController extends Controller
         return response()->json($result);
     }
 
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|unique:posts|max:255',
-            'body' => 'required',
+        $validator = Validator::make($request->all(),[
+            'email'=> 'required|email|unique:users',
+            'name' => 'required'
         ]);
+        if ($validator->fails()) {
+            abort(422);
+        }
         $result = $request->all();
-        $pass = str_random(6);
-        $result['password'] = $pass;
+        $result['password'] = null;
+        $result['confirmed_token'] = Uuid::uuid();
         $user = User::create($result);
         $user->save();
         $token = \Password::broker()->createToken($user);

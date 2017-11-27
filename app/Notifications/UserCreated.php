@@ -46,7 +46,7 @@ class UserCreated extends Notification
             ->subject("Você foi cadastrado no $appName")
             ->greeting("Olá usuário {$notifiable->name}, seja bem-vindo ao $appName")
             ->line("Seu número de matrícula é: {$notifiable->enrolment}")
-            ->action('Clique aqui para definir sua senha',route('password.reset',$this->token))
+            ->action('Clique aqui para definir sua senha','linktoken')
             ->line('Obrigado por usar nossa aplicação')
             ->salutation('Atenciosamente');
 
