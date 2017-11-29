@@ -53,10 +53,10 @@ class ClientsController extends Controller
     }
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $this->validate($request,[
             'name' => 'string|required',
             'email' => 'email|unique:clients|required',
-            'type' => 'required',
+            'type' => 'required|integer',
             'document' => 'required',
             'state' => 'required',
             'city' => 'required',
@@ -68,9 +68,6 @@ class ClientsController extends Controller
             'phone' => 'required',
             'phoneAlternative' => 'nullable'
         ]);
-        if ($validator->fails()) {
-            abort(422);
-        }
         $data = $request->all();
 
         $client = new Client();
@@ -91,7 +88,7 @@ class ClientsController extends Controller
 
         $client->save();
 
-        return response()->json($data = $request->all());
+        return response()->json($client);
     }
     public function show($id){
         $client = Client::findOrFail($id);

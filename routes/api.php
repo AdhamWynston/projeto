@@ -46,7 +46,9 @@ Route::group([
     Route::get('/manage/employee/checkin/list/events/{id}', 'ManageEventsController@employeeCheckedinList');
     Route::get('/manage/employee/checkout/list/events/{id}', 'ManageEventsController@employeeCheckedoutList');
 
-
+    Route::get('/token/confirmed/{token}','UsersController@confirmation');
+    Route::post('/token/{id}/password', 'UsersController@updatePassword');
+    Route::post('/token/recovery', 'UsersController@recovery');
     Route::get('/reports/event/{id}', 'EventsReportsController@individual');
     Route::get('/reports/client/{id}', 'ClientsReportsController@individual');
     Route::get('/reports/employee/{id}', 'EmployeesReportsController@individual');

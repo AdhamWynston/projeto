@@ -5,7 +5,7 @@ namespace App\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserCreated extends Notification
+class RecoveryPassword extends Notification
 {
     /**
      * @var
@@ -41,10 +41,9 @@ class UserCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        $appName = config('app.name');
         return (new MailMessage)
-            ->subject("Você foi cadastrado no $appName")
-            ->greeting("Olá usuário {$notifiable->name}, seja bem-vindo ao $appName")
+            ->subject("Recuperação de senha")
+            ->greeting("Olá usuário {$notifiable->name}, acesse ao link abaixo para redefinir sua senha")
             ->action('Clique aqui para definir sua senha','http://localhost:8080/#/password/' . $this->token)
             ->line('Obrigado por usar nossa aplicação')
             ->salutation('Atenciosamente');

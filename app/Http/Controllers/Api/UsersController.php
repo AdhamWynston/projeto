@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiControllerTrait;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\RecoveryPassword;
 use App\Notifications\UserCreated;
+use Carbon\Carbon;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 
@@ -51,24 +54,62 @@ class UsersController extends Controller
         return response()->json($result);
     }
 
+    public function confirmation($token){
+        $user = User::where('confirmed_token', $token)->first();
+        if ($user === null) {
+//            return response()->json(false);
+            abort(422);
+        }
+        return response()->json($user);
+    }
+
+    public function recovery(Request $request) {
+        $this->validate($request, [
+            'email' => 'email|required'
+        ]);
+        $data = $request->all();
+        $user = User::where('email', $data['email'])->firstOrFail();
+        if (!is_null($user)){
+            $token = Uuid::uuid();
+            $user->confirmed_token = Uuid::uuid();
+            $user->notify(new RecoveryPassword($token));
+        }
+        $user->save();
+        return response()->json($user);
+    }
+
+    public function updatePassword (Request $request, $id) {
+        $this->validate($request, [
+            'password' => 'string|required',
+            'confirmed_token' => 'string|required'
+        ]);
+        $data = $request->all();
+        $user = User::where('id', $id)
+            ->where('confirmed_token', $data['confirmed_token'])
+            ->firstOrFail();
+        $user->password = Hash::make($data['password']);
+        $user->confirmed_token = !is_null($user->password) ? null  : $user->confirmed_token;
+        $user->confirmed_at = Carbon::create();
+        $user->save();
+        return response()->json($user);
+    }
+
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $this->validate($request,[
             'email'=> 'required|email|unique:users',
             'name' => 'required'
         ]);
-        if ($validator->fails()) {
-            abort(422);
-        }
         $result = $request->all();
         $result['password'] = null;
         $result['confirmed_token'] = Uuid::uuid();
         $user = User::create($result);
         $user->save();
-        $token = \Password::broker()->createToken($user);
+        $token = Uuid::uuid();
         $user->notify(new UserCreated($token));
         return response()->json($user);
     }
+
     public function show($id){
         $result = $this->model->with($this->relationships())
             ->findOrFail($id);
