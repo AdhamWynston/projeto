@@ -115,12 +115,45 @@ class UsersController extends Controller
             ->findOrFail($id);
         return response()->json($result);
     }
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+        $this->validate($request,[
+            'email'=> 'required|email|unique:users,email,'. $user->id,
+            'name' => 'required',
+            'password' => 'string|nullable|min:6|same:confirmed_password|different:current_password',
+            'confirmed_password' => 'string|min:6|same:password',
+            'current_password' => 'required'
+        ]);
+        $data = $request->all();
+        $password_current = $data['current_password'];
+        if (Hash::check($password_current, $user->password)) {
+            $user->name = (array_key_exists('name', $data)) ? $data['name'] : $user->name;
+            $user->email = (array_key_exists('email', $data)) ? $data['email'] : $user->email;
+            $user->password = (array_key_exists('password', $data)) ? Hash::make($data['password']) : $user->password;
+            $user->save();
+            return response()->json($user);
+        }
+        else {
+            abort(404);
+        }
+    }
 
     public function update(Request $request, $id)
     {
-        $result = $this->model->findOrFail($id);
-        $result->update($request->all());
-        return response()->json($result);
+        $this->validate($request,[
+            'email'=> 'required|email|unique:users,email,'. $id,
+            'name' => 'required',
+            'role' => 'required'
+        ]);
+        $data = $request->all();
+        $user = User::where('id', $id)
+            ->firstOrFail();
+        $user->name = (array_key_exists('name', $data)) ? $data['name'] : $user->name;
+        $user->email = (array_key_exists('email', $data)) ? $data['email'] : $user->email;
+        $user->role = (array_key_exists('role', $data)) ? $data['role'] : $user->role;
+        $user->save();
+        return response()->json($user);
     }
 
     protected function relationships(){

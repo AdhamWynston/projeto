@@ -23,7 +23,10 @@ Route::group([
         });
     });
         Route::group(['middleware' => 'auth:api'], function (){
-
+            Route::get('/user/current', function (Request $request){
+                return $request->user();
+            });
+            Route::put('/user/profile', 'UsersController@updateProfile');
         });
     Route::resource('/employees','EmployeesController',['except' => ['edit','create']]);
     Route::resource('/clients','ClientsController', ['except' => ['edit','create']]);
