@@ -39,6 +39,7 @@ Route::group([
 
     Route::get('/clients/document/{document}/{id}','ClientsController@checkDocument');
     Route::get('/employees/document/{document}/{id}','EmployeesController@checkDocument');
+    Route::post('/employee/exists','EmployeesController@checkName');
 
     Route::get('/client/{id}/events', 'ClientsController@clientEvents');
     Route::post('/events/check','EventsController@checkDate');
@@ -56,6 +57,7 @@ Route::group([
     Route::get('/reports/client/{id}', 'ClientsReportsController@individual');
     Route::get('/reports/employee/{id}', 'EmployeesReportsController@individual');
     Route::get('/reports/teste/{id}', 'EventsReportsController@teste');
+    Route::get('/reports/employee', 'EmployeesReportsController@report');
 });
 
 

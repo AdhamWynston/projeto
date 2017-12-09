@@ -71,8 +71,11 @@ class UsersController extends Controller
         $user = User::where('email', $data['email'])->firstOrFail();
         if (!is_null($user)){
             $token = Uuid::uuid();
-            $user->confirmed_token = Uuid::uuid();
+            $user->confirmed_token = $token;
             $user->notify(new RecoveryPassword($token));
+        }
+        else {
+            abort(422);
         }
         $user->save();
         return response()->json($user);
@@ -105,7 +108,7 @@ class UsersController extends Controller
         $result['confirmed_token'] = Uuid::uuid();
         $user = User::create($result);
         $user->save();
-        $token = Uuid::uuid();
+        $token = $user->confirmed_token;
         $user->notify(new UserCreated($token));
         return response()->json($user);
     }

@@ -22,6 +22,9 @@ class Employee extends Model
         'email',
         'status'
     ];
+    public function produce() {
+        return $this->hasMany(Event::class);
+    }
     public function events() {
         return $this->hasMany(ManageEvents::class);
     }

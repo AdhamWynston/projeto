@@ -48,7 +48,7 @@ class EmployeesController extends Controller
         $this->validate($request, [
             'name' => 'string|required',
             'email' => 'email|unique:employees|required',
-            'document' => 'required',
+            'document' => 'required|cpf_cnpj',
             'state' => 'required|string|min:2|max:2',
             'city' => 'required|string',
             'zip_code' => 'required|string',

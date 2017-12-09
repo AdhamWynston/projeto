@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
             $table->string('street');
             $table->string('neighborhood');
             $table->string('number');
-            $table->string('complement');
+            $table->string('complement')->nullable();
             $table->string('phone');
             $table->string('phoneAlternative')->nullable();
             $table->string('email');

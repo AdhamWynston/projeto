@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 trait ApiControllerTrait {
 
     function checkEmail($email, $id) {
@@ -14,6 +16,19 @@ trait ApiControllerTrait {
             return response()->json(false);
         }
         return response()->json(true);
+    }
+    function checkName(Request $request) {
+        $this->validate($request,[
+            'name' => 'string|required'
+        ]);
+        $data = $request->all();
+        $check = $this->model->where('name', $data['name'])
+            ->where('status', 1)
+            ->count();
+        if ($check) {
+            return response()->json(true);
+        }
+        return response()->json(false);
     }
     function checkDocument($document, $id) {
 

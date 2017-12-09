@@ -93,6 +93,15 @@ class ManageEventsController extends Controller
         $result = $request->all();
         $employees = $result['employees'];
         $eventId = $result['event_id'];
+        $this->validate($request,[
+            'event_id' => 'integer|required',
+            'employees' => 'required'
+
+        ]);
+        $event = Event::where('id', $eventId)->firstOrFail();
+        if (count($employees) != $event->quantityEmployees) {
+            abort(422);
+        }
         ManageEvents::where('event_id', '=', $eventId)->delete();
         foreach ($employees as $employee) {
             $data = [

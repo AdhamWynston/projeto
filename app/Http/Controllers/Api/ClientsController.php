@@ -57,7 +57,7 @@ class ClientsController extends Controller
             'name' => 'string|required',
             'email' => 'email|unique:clients|required',
             'type' => 'required|integer',
-            'document' => 'required',
+            'document' => 'required|cpf_cnpj',
             'state' => 'required',
             'city' => 'required',
             'zip_code' => 'required',
