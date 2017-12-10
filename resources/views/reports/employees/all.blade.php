@@ -7,17 +7,19 @@
 </head>
 <body>
 <div class="container">
-
+    <div align="center">
+        <h1>Relatório de todos funcionários</h1>
+    </div>
     <div class="row">
         @foreach ($employees as $employee)
             <div align="center">
-                <h1>Funcionário:  <small>{{ $employee->name }}</small></h1>
+                <h3>Funcionário:  <small>{{ $employee->name }}</small></h3>
             </div>
             <div>
                 <h3>Situação: <small>
                         @if($employee->status === 1)
                             <span> Ativado </span>
-                        @elseif($employee->status === 2)
+                        @elseif($employee->status === 0)
                             <span> Desativado </span>
                         @endif
                     </small></h3>
@@ -54,11 +56,15 @@
                 </tr>
             </table>
     </div>
+    <br class="quebrapagina">
     @endforeach
 </div>
 
 <!-- Scripts -->
 <style>
+    .quebrapagina {
+        page-break-before: always;
+    }
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;

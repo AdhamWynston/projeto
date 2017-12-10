@@ -40,6 +40,8 @@ Route::group([
     Route::get('/clients/document/{document}/{id}','ClientsController@checkDocument');
     Route::get('/employees/document/{document}/{id}','EmployeesController@checkDocument');
     Route::post('/employee/exists','EmployeesController@checkName');
+    Route::post('/event/exists','EventsController@checkName');
+    Route::post('/client/exists','ClientsController@checkName');
 
     Route::get('/client/{id}/events', 'ClientsController@clientEvents');
     Route::post('/events/check','EventsController@checkDate');
@@ -58,6 +60,7 @@ Route::group([
     Route::get('/reports/employee/{id}', 'EmployeesReportsController@individual');
     Route::get('/reports/teste/{id}', 'EventsReportsController@teste');
     Route::get('/reports/individual/employee', 'EmployeesReportsController@reportIndividual');
+    Route::get('/reports/all/employee', 'EmployeesReportsController@reportAll');
 //    Route::post('/reports/employee', 'EmployeesReportsController@report');
 });
 

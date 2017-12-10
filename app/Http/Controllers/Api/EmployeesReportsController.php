@@ -19,6 +19,23 @@ class EmployeesReportsController extends Controller
         $name = "funcionario-" . $id . ".pdf";
         return $pdf->stream($name);
     }
+    public function reportAll (Request $request) {
+        $data = $request->all();
+        $order = (array_key_exists('order', $data) && $data['order'] != 'undefined') ? $data['order'] : 'name';
+        $status = (array_key_exists('status', $data) && $data['status'] != 'undefined') ? $data['status'] : null;
+        if ($status != null) {
+            $employees = Employee::where('status', $status)
+                ->orderBy($order)
+                ->get();
+        }
+        else {
+            $employees = Employee::orderBy($order)->get();
+        }
+        view()->share('employees', $employees);
+        $pdf = PDF::loadView('reports.employees.all');
+        $name = "funcionarios-" . Carbon::now() . ".pdf";
+        return $pdf->stream($name);
+    }
     public function reportIndividual (Request $request) {
         $data = $request->all();
         $this->validate($request,[
@@ -29,14 +46,15 @@ class EmployeesReportsController extends Controller
         $endDate = (array_key_exists('endDate', $data) && $data['endDate'] != 'undefined') ? $data['endDate'] : null;
         $employee = Employee::where('name', $data['name'])
             ->get();
-        $employee_id = $employee['id'];
+        $employee_id = $employee[0]['id'];
         if($startDate != null && $endDate != null) {
-            $events = Event::whereBetween('startDate', [$startDate, $endDate])
-                ->orWhereBetween('endDate', [$startDate, $endDate])
-                ->orderBy($order)
-                ->with(['manageEvents' => function ($query) use ($employee_id) {
-                    $query->where('employee_id', $employee_id);
+            $events = ManageEvents::where('employee_id', $employee_id)
+                ->with(['event' => function ($query) use ($startDate, $endDate, $order){
+                    $query->whereBetween('startDate', [$startDate, $endDate]);
+                    $query->orWhereBetween('endDate', [$startDate, $endDate]);
+                    $query->orderBy($order);
                 }])
+                ->has('event')
                 ->get();
             $data = array(
                 'employee' => $employee,
@@ -46,11 +64,8 @@ class EmployeesReportsController extends Controller
             $pdf = PDF::loadView('reports.employees.individual_events');
         }
         else {
-            $events = Event::orderBy($order)
-                ->with(['manageEvents' => function ($query) use ($employee_id) {
-                    $query->where('employee_id', $employee_id);
-                }])
-                ->has('manageEvents')
+            $events = ManageEvents::where('employee_id', $employee_id)
+                ->with('event')
                 ->get();
             $data = array(
                 'employee' => $employee,
@@ -62,6 +77,6 @@ class EmployeesReportsController extends Controller
         $name = "funcionario-" . $employee_id. Carbon::now() . ".pdf";
         return $pdf->stream($name);
 //        }
-//        return response()->json($data['events'][0]->manage_events);
+//        return response()->json($data['events']);
     }
 }
