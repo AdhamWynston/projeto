@@ -8,9 +8,6 @@
 <body>
 <div class="container">
     <div class="row">
-        <div align="center">
-            <h1>Relatório Individual</h1>
-        </div>
         @foreach ($data['employee'] as $employee)
             <div align="center">
                 <h2>Funcionário:  <small>{{ $employee->name }}</small></h2>

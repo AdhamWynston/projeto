@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Relatório de Funcionários</title>
+    <title>Relatório de Clientes</title>
 </head>
 <body>
 <div class="container">
     <div align="center">
-        <h1>Relatório de Funcionários</h1>
+        <h1>Relatório de clientes</h1>
     </div>
     <div class="row">
         <div align="center">
-            <h3>Tabela de  <small>Funcionários</small></h3>
+            <h3>Tabela de  <small>Clientes</small></h3>
         </div>
         <div>
             <table border="1">
@@ -22,17 +22,17 @@
                     <th>E-mail</th>
                     <th>Telefone</th>
                 </tr>
-                @foreach ($employees as $employee)
-                    <tr>
-                        <td id="celula1">{{$employee->name}}</td>
-                        <td id="celula2">{{ cpf($employee->document)}}</td>
-                        <td id="celula4">{{$employee->email}}</td>
-                        <td id="celula3">{{$employee->phone}}</td>
-                    </tr>
+        @foreach ($clients as $client)
+            <tr>
+                <td id="celula1">{{$client->name}}</td>
+                <td id="celula2">{{ cpf($client->document)}}</td>
+                <td id="celula4">{{$client->email}}</td>
+                <td id="celula3">{{$client->phone}}</td>
+            </tr>
                 @endforeach
             </table>
-        </div>
     </div>
+</div>
 </div>
 <!-- Scripts -->
 <style>

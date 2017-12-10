@@ -7,11 +7,13 @@
 </head>
 <body>
 <div class="container">
-
     <div class="row">
-        @foreach ($clients as $client)
+        <div align="center">
+            <h1>Relatório Individual</h1>
+        </div>
+        @foreach ($data['client'] as $client)
             <div align="center">
-                <h1>Funcionário:  <small>{{ $client->name }}</small></h1>
+                <h2>Cliente:  <small>{{ $client->name }}</small></h2>
             </div>
             <div>
                 <h3>Situação: <small>
@@ -52,6 +54,32 @@
                             @endif
                     </td>
                 </tr>
+                <tr>
+                    <th class="tg-center">Eventos</th>
+                </tr>
+                @foreach ($data['events'] as $event)
+                    <tr>
+                        <td>
+                            <div><b>Nome do evento:</b> {{$event->name }}</div>
+                            <div><b>Data de Inicío:</b> {{ Carbon\Carbon::parse($event->startDate)->format('d/m/Y H:i') }}</div>
+                            <div><b>Data de Termíno:</b> {{ Carbon\Carbon::parse($event->endDate)->format('d/m/Y H:i') }}</div>
+                            <div><b>Situação:</b>
+                                @if($event->status === 1)
+                                    <span> Pendente </span>
+                                @elseif($event->status === 2)
+                                    <span> Aguardando </span>
+                                @elseif($event->status === 3)
+                                    <span>Em andamento</span>
+                                @elseif($event->status === 4)
+                                    <span>Realizado</span>
+                                @elseif($event->status === 5)
+                                    <span>Cancelado</span>
+                                @endif
+                            </div>
+
+                        </td>
+                    </tr>
+                    @endforeach
             </table>
     </div>
     @endforeach
@@ -70,6 +98,7 @@
     .tg-center {
         text-align: center;
     }
+
 </style>
 </body>
 </html>
