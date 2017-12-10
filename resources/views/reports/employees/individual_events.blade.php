@@ -16,7 +16,7 @@
                 <h3>Situação: <small>
                         @if($employee->status === 1)
                             <span> Ativado </span>
-                        @elseif($employee->status === 2)
+                        @elseif($employee->status === 0)
                             <span> Desativado </span>
                         @endif
                     </small></h3>
@@ -57,37 +57,37 @@
                 @foreach ($data['events'] as $event)
                     <tr>
                         <td>
-                            <div><b>Nome do evento:</b> {{ $event->event->name }}</div>
-                            <div><b>Inicío:</b> {{ Carbon\Carbon::parse($event->event->startDate)->format('d/m/Y H:i') }}</div>
-                            <div><b>Termíno:</b> {{ Carbon\Carbon::parse($event->event->endDate)->format('d/m/Y H:i') }}</div>
+                            <div><b>Nome do evento:</b> {{$event->name }}</div>
+                            <div><b>Data de Inicío:</b> {{ Carbon\Carbon::parse($event->startDate)->format('d/m/Y H:i') }}</div>
+                            <div><b>Data de Termíno:</b> {{ Carbon\Carbon::parse($event->endDate)->format('d/m/Y H:i') }}</div>
                             <div><b>Situação:</b>
-                                @if($event->event->status === 1)
+                                @if($event->status === 1)
                                     <span> Pendente </span>
-                                @elseif($event->event->status === 2)
+                                @elseif($event->status === 2)
                                     <span> Aguardando </span>
-                                @elseif($event->event->status === 3)
+                                @elseif($event->status === 3)
                                     <span>Em andamento</span>
-                                @elseif($event->event->status === 4)
+                                @elseif($event->status === 4)
                                     <span>Realizado</span>
-                                @elseif($event->event->status === 5)
+                                @elseif($event->status === 5)
                                     <span>Cancelado</span>
                                 @endif
                             </div>
-                            @if($event->event->status === 4)
-                                @if($event->check_in != null)
-                            <div><b>Entrada do funcionário:</b> {{ Carbon\Carbon::parse($event->check_in)->format('d/m/Y H:i') }}</div>
-                                @else
-                                    <div><b>Entrada do funcionário:</b> Não Registrado</div>
-                                @endif
-                                    @if($event->check_out != null)
-                            <div><b>Saída do funcionário:</b> {{ Carbon\Carbon::parse($event->check_out)->format('d/m/Y H:i') }}</div>
-                                @else
-                                    @endif
-                                        <div><b>Entrada do funcionário:</b> Não Registrado</div>
-                                @endif
+                            @endforeach
+                            {{--@if($event->status === 4)--}}
+                                {{--@if($event->manage_events->check_in != null)--}}
+                            {{--<div><b>Entrada do funcionário:</b> {{ Carbon\Carbon::parse($event->manage_events->check_in)->format('d/m/Y H:i') }}</div>--}}
+                                {{--@else--}}
+                                    {{--<div><b>Entrada do funcionário:</b> Não Registrado</div>--}}
+                                {{--@endif--}}
+                                    {{--@if($event->manage_events->check_out != null)--}}
+                            {{--<div><b>Saída do funcionário:</b> {{ Carbon\Carbon::parse($event->manage_events->check_out)->format('d/m/Y H:i') }}</div>--}}
+                                {{--@else--}}
+                                    {{--@endif--}}
+                                        {{--<div><b>Entrada do funcionário:</b> Não Registrado</div>--}}
+                                {{--@endif--}}
                         </td>
                     </tr>
-                    @endforeach
             </table>
     </div>
     @endforeach

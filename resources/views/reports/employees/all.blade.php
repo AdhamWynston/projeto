@@ -17,7 +17,7 @@
                 <h3>Situação: <small>
                         @if($employee->status === 1)
                             <span> Ativado </span>
-                        @elseif($employee->status === 0)
+                        @elseif($employee->status === 2)
                             <span> Desativado </span>
                         @endif
                     </small></h3>

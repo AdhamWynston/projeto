@@ -23,7 +23,6 @@ trait ApiControllerTrait {
         ]);
         $data = $request->all();
         $check = $this->model->where('name', $data['name'])
-            ->where('status', 1)
             ->count();
         if ($check) {
             return response()->json(true);
