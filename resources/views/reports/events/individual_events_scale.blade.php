@@ -83,28 +83,26 @@
         <h4>Data da emissão: {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}</h4>
     </div>
     <div align="center">
-        <h2>Escala e Frequência</h2>
+        <h2>Escala para o evento</h2>
     </div>
-    <table>
-        <tr>
-            <th align="center">Nome</th>
-            <th align="center">CPF</th>
-            <th align="center">Entrada</th>
-            <th align="center">Saída</th>
-            <th align="center">Horas Trabalhadas</th>
-        </tr>
-        @foreach($data['manage'] as $employee)
-            @php($end = Carbon\Carbon::parse($employee->check_out); $start = Carbon\Carbon::parse($employee->check_in);)
-        @endphp
+        <table align="center">
             <tr>
-                <td id="celula1" align="center">{{$employee->employee->name}}</td>
-                <td id="celula2" align="center">{{ cpf($employee->employee->document) }}</td>
-                <td id="celula3" align="center">{{ Carbon\Carbon::parse($employee->check_in)->format('d/m/Y H:i') }}</td>
-                <td id="celula4" align="center">{{ Carbon\Carbon::parse($employee->check_out)->format('d/m/Y H:i') }}</td>
-                <td id="celula5" align="center">{{ Carbon\Carbon::parse($employee->check_out)->diffInHours(Carbon\Carbon::parse($employee->check_in)) }}</td>
+                <th align="center">Nome</th>
+                <th align="center">CPF</th>
+                <th align="center">Telefone</th>
+                <th align="center">E-mail</th>
             </tr>
-        @endforeach
-    </table>
+            @foreach($data['manage'] as $employee)
+                @php($end = Carbon\Carbon::parse($employee->check_out); $start = Carbon\Carbon::parse($employee->check_in);)
+                @endphp
+                <tr>
+                    <td id="celula1" align="center">{{$employee->employee->name}}</td>
+                    <td id="celula2" align="center">{{ cpf($employee->employee->document) }}</td>
+                    <td id="celula3" align="center">{{ $employee->employee->phone }}</td>
+                    <td id="celula4" align="center">{{ $employee->employee->email }}</td>
+                </tr>
+            @endforeach
+        </table>
 </div>
 
 <!-- Scripts -->
@@ -126,11 +124,11 @@
         _width: 255px;
     }
     #celula3 {
-        width: 120px;
+        width: 150px;
         _width: 255px;
     }
     #celula4 {
-        width: 120px;
+        width: 160px;
         _width: 255px;
     }
     #celula5 {

@@ -77,16 +77,16 @@ class EventsReportsController extends Controller
             'event' => $event
         );
         if ($type === 'fullScale') {
-
+            view()->share('data', $data);
+            $pdf = PDF::loadView('reports.events.individual_events_fullscale');
         }
         else if ($type === 'scale') {
-
+            view()->share('data', $data);
+            $pdf = PDF::loadView('reports.events.individual_events_scale');
         }
         else {
 
         }
-        view()->share('data', $data);
-        $pdf = PDF::loadView('reports.events.individual_events_fullscale');
         $name = "evento-" . $event->id. Carbon::now() . ".pdf";
         return $pdf->stream($name);
 //        return response()->json($data);
