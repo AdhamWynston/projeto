@@ -8,6 +8,9 @@
 <body>
 <div class="container">
     <div class="row">
+        <div>
+            <h4>Data da emissão: {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}</h4>
+        </div>
         <div align="center">
             <h1>Relatório Individual</h1>
         </div>

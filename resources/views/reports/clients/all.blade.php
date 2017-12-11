@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Relatório de Clientes</title>
 </head>
 <body>
@@ -11,6 +12,9 @@
         <h1>Relatório de clientes</h1>
     </div>
     <div class="row">
+        <div>
+            <h4>Data da emissão: {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}</h4>
+        </div>
         <div align="center">
             <h3>Tabela de  <small>Clientes</small></h3>
         </div>
@@ -39,6 +43,9 @@
     .quebrapagina {
         page-break-before: always;
     }
+    .page-number:after {
+        content: counter(page);
+    }
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
@@ -66,6 +73,24 @@
     }
     .tg-center {
         text-align: center;
+    }
+    h4 {
+        display: block;
+        font-size: 1em;
+        margin-top: 1.33em;
+        margin-bottom: 1.33em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: bold;
+    }
+    h5 {
+        display: block;
+        font-size: .83em;
+        margin-top: 1.67em;
+        margin-bottom: 1.67em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: bold;
     }
 </style>
 </body>

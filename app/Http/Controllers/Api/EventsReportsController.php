@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\ManageEvents;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventsReportsController extends Controller
@@ -38,5 +39,56 @@ class EventsReportsController extends Controller
             'events' => $events
         );
         return response()->json($manage);
+    }
+    public function reportAll (Request $request) {
+        $data = $request->all();
+        $order = (array_key_exists('order', $data) && $data['order'] != 'undefined') ? $data['order'] : 'name';
+        $status = (array_key_exists('status', $data) && $data['status'] != 'undefined') ? $data['status'] : null;
+        $startDate = (array_key_exists('startDate', $data) && $data['startDate'] != 'undefined') ? $data['startDate'] : null;
+        $endDate = (array_key_exists('endDate', $data) && $data['endDate'] != 'undefined') ? $data['endDate'] : null;
+        if ($status != null) {
+            $clients = Client::where('status', $status)
+                ->orderBy($order)
+                ->get();
+        }
+        else {
+            $clients = Client::orderBy($order)->get();
+        }
+        view()->share('clients', $clients);
+        $pdf = PDF::loadView('reports.clients.all');
+        $name = "clientes-" . Carbon::now() . ".pdf";
+        return $pdf->stream($name);
+    }
+    public function reportIndividual (Request $request) {
+        $data = $request->all();
+        $this->validate($request,[
+            'id'=> 'required|exists:clients|string',
+            'type' => 'required'
+        ]);
+        $type = (array_key_exists('type', $data) && $data['type'] != 'undefined') ? $data['type'] : null;
+        $event = Event::where('id', $data['id'])
+            ->with('client')
+            ->firstOrFail();
+        $scale = $event->manageEvents()
+            ->with('employee')
+            ->get();
+        $data = array (
+            'manage' => $scale,
+            'event' => $event
+        );
+        if ($type === 'fullScale') {
+
+        }
+        else if ($type === 'scale') {
+
+        }
+        else {
+
+        }
+        view()->share('data', $data);
+        $pdf = PDF::loadView('reports.events.individual_events_fullscale');
+        $name = "evento-" . $event->id. Carbon::now() . ".pdf";
+        return $pdf->stream($name);
+//        return response()->json($data);
     }
 }

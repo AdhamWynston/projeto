@@ -113,7 +113,7 @@
                             <th align="center">CPF</th>
                             <th align="center">Telefone</th>
                         </tr>
-                        @foreach($data['manages'] as $employee)
+                        @foreach($data['manage'] as $employee)
                             <tr>
                                 <td align="center">{{$employee->employee->name}}</td>
                                 <td align="center">{{ cpf($employee->employee->document) }}</td>

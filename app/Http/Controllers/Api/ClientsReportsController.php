@@ -68,9 +68,12 @@ class ClientsReportsController extends Controller
                 'events' => $events
             );
             view()->share('data', $data);
+
             $pdf = PDF::loadView('reports.clients.individual_events');
         }
         $name = "cliente-" . $client_id. Carbon::now() . ".pdf";
+//        $font = $pdf->getFontMetrics()->get_font("helvetica", "bold");
+//        $pdf->getCanvas()->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 10, array(0,0,0));
         return $pdf->stream($name);
 //        }
 //        return response()->json($data);

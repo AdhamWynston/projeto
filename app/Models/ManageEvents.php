@@ -17,6 +17,10 @@ class ManageEvents extends Model
     {
         return $this->belongsTo('App\Models\Employee');
     }
+    public function employeeOrderName()
+    {
+        return $this->belongsTo('App\Models\Employee', 'employee_id')->orderBy('id', 'desc');
+    }
     public function event()
     {
         return $this->belongsTo('App\Models\Event');

@@ -8,6 +8,9 @@
 <body>
 <div class="container">
     <div class="row">
+        <div>
+            <h4>Data da emissão: {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}</h4>
+        </div>
         @foreach ($data['employee'] as $employee)
             <div align="center">
                 <h2>Funcionário:  <small>{{ $employee->name }}</small></h2>

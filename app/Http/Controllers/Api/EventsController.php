@@ -14,7 +14,7 @@ class EventsController extends Controller
 {
     protected $model;
     protected $relationships=['client'];
-
+    use ApiControllerTrait;
     public function __construct(Event $model)
     {
         $this->model = $model;

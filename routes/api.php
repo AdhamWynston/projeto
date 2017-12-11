@@ -63,6 +63,8 @@ Route::group([
     Route::get('/reports/all/employee', 'EmployeesReportsController@reportAll');
     Route::get('/reports/individual/client', 'ClientsReportsController@reportIndividual');
     Route::get('/reports/all/client', 'ClientsReportsController@reportAll');
+    Route::get('/reports/individual/event', 'EventsReportsController@reportIndividual');
+    Route::get('/reports/all/event', 'EventsReportsController@reportAll');
 //    Route::post('/reports/employee', 'EmployeesReportsController@report');
 });
 

@@ -29,4 +29,10 @@ class Event extends Model
     public function manageEvents() {
         return $this->hasMany('App\Models\ManageEvents', 'event_id');
     }
+    public function manageEventsOrderName() {
+        return $this->hasMany('App\Models\ManageEvents', 'event_id')->with('employeeOrderName');
+    }
+    public function manageEventsOrder() {
+        return $this->hasMany('App\Models\ManageEvents', 'event_id')->orderBy('check_in');
+    }
 }
