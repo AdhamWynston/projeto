@@ -81,6 +81,7 @@
                     @endif
                 </td>
             </tr>
+        </table>
             @if($event->status !== 1 && $event->status !== 5)
             <tr>
                     <table>

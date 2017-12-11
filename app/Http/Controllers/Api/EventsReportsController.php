@@ -43,21 +43,37 @@ class EventsReportsController extends Controller
     public function reportAll (Request $request) {
         $data = $request->all();
         $order = (array_key_exists('order', $data) && $data['order'] != 'undefined') ? $data['order'] : 'name';
-        $status = (array_key_exists('status', $data) && $data['status'] != 'undefined') ? $data['status'] : null;
+        $status = (array_key_exists('status', $data) && $data['status'] != 'undefined' && $data['status'] != 0) ? $data['status'] : null;
         $startDate = (array_key_exists('startDate', $data) && $data['startDate'] != 'undefined') ? $data['startDate'] : null;
         $endDate = (array_key_exists('endDate', $data) && $data['endDate'] != 'undefined') ? $data['endDate'] : null;
-        if ($status != null) {
-            $clients = Client::where('status', $status)
-                ->orderBy($order)
-                ->get();
+        if ($startDate !== null && $endDate !== null){
+            if ($status !== null) {
+                $events = Event::where('status', $status)
+                    ->whereBetween('startDate', [$startDate, $endDate])
+                    ->whereBetween('endDate', [$startDate, $endDate])
+                    ->orderBy($order)
+                    ->get();
+            }
+            else {
+                $events = Event::whereBetween('startDate', [$startDate, $endDate])
+                    ->whereBetween('endDate', [$startDate, $endDate])
+                    ->orderBy($order)
+                    ->get();
+            }
         }
         else {
-            $clients = Client::orderBy($order)->get();
+            if($status !== null) {
+                $events = Event::where('status', $status)->orderBy($order)->get();
+            }
+            else {
+                $events = Event::orderBy($order)->get();
+            }
         }
-        view()->share('clients', $clients);
-        $pdf = PDF::loadView('reports.clients.all');
-        $name = "clientes-" . Carbon::now() . ".pdf";
+        view()->share('events', $events);
+        $pdf = PDF::loadView('reports.events.all');
+       $name = "clientes-" . Carbon::now() . ".pdf";
         return $pdf->stream($name);
+//        return response()->json($events);
     }
     public function reportIndividual (Request $request) {
         $data = $request->all();
