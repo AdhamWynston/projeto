@@ -66,6 +66,7 @@ Route::group([
     Route::get('/reports/individual/event', 'EventsReportsController@reportIndividual');
     Route::get('/reports/all/user', 'UsersReportsController@reportAll');
     Route::get('/reports/all/event', 'EventsReportsController@reportAll');
+    Route::get('/testeando', 'EventsController@barChart');
 //    Route::post('/reports/employee', 'EmployeesReportsController@report');
 });
 

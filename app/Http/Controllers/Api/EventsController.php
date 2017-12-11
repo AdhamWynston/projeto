@@ -53,6 +53,23 @@ class EventsController extends Controller
         return response()->json($result);
     }
 
+    public function barChart() {
+        $january = Event::whereMonth('created_at', 1)->count();
+        $febuary = Event::whereMonth('created_at', 2)->count();
+        $march = Event::whereMonth('created_at', 3)->count();
+        $april = Event::whereMonth('created_at', 4)->count();
+        $may = Event::whereMonth('created_at', 5)->count();
+        $june = Event::whereMonth('created_at', 6)->count();
+        $july = Event::whereMonth('created_at', 7)->count();
+        $august = Event::whereMonth('created_at', 8)->count();
+        $september = Event::whereMonth('created_at', 9)->count();
+        $october = Event::whereMonth('created_at', 10)->count();
+        $november = Event::whereMonth('created_at', 11)->count();
+        $december = Event::whereMonth('created_at', 12)->count();
+        $data = array($january, $febuary, $march, $april, $may, $june, $july, $august, $september, $october, $november, $december
+        );
+        return response()->json($data);
+    }
     public function store(Request $request)
     {
         $result = $this->model->create($request->all());
