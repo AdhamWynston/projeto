@@ -86,7 +86,6 @@
                             <div><b>Saída do funcionário:</b> {{ Carbon\Carbon::parse($event->check_out)->format('d/m/Y H:i') }}</div>
                                 @else
                                     @endif
-                                        <div><b>Entrada do funcionário:</b> Não Registrado</div>
                                 @endif
                         </td>
                     </tr>

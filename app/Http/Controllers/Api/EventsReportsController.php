@@ -78,7 +78,7 @@ class EventsReportsController extends Controller
     public function reportIndividual (Request $request) {
         $data = $request->all();
         $this->validate($request,[
-            'id'=> 'required|exists:clients|string',
+            'id'=> 'required|exists:clients',
             'type' => 'required'
         ]);
         $type = (array_key_exists('type', $data) && $data['type'] != 'undefined') ? $data['type'] : null;
